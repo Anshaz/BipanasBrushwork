@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.css';
-import Hello from './components/Hello';
+import Homepage from './components/Homepage';
 
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to My React Vite App</h1>
-      <Hello />
+      <h1>BipanasBrushwork</h1>
+      <Homepage />
     </div>
   );
 }
