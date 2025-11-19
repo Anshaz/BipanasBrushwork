@@ -9,26 +9,27 @@ const Homepage = () => {
   const artworkImages = [
     {
       id: 1,
-      src: '/src/public/Annapurna.jpg',
+      src: '/Annapurna.jpg',
       title: 'Sunset Dreams',
       medium: 'Oil on Canvas',
       year: '2024'
     },
     {
       id: 2,
-      src: '/src/public/Annapurna.jpg',
+      src: '/Annapurna.jpg',
       title: 'Urban Rhythm',
       medium: 'Acrylic',
       year: '2024'
     },
     {
       id: 3,
-      src: '/src/public/Annapurna.jpg',
+      src: '/Annapurna.jpg',
       title: 'Ocean Whisper',
       medium: 'Watercolor',
       year: '2023'
     }
   ];
+
 
   useEffect(() => {
     const timer = setInterval(() => {
