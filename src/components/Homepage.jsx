@@ -10,22 +10,22 @@ const Homepage = () => {
     {
       id: 1,
       src: '/Annapurna.jpg',
-      title: 'Sunset Dreams',
-      medium: 'Oil on Canvas',
+      title: 'Annapurna Serenity',
+      medium: 'Acrylic on Canvas',
       year: '2024'
     },
     {
       id: 2,
-      src: '/Annapurna.jpg',
-      title: 'Urban Rhythm',
-      medium: 'Acrylic',
+      src: '/Everest.jpg',
+      title: 'Everest Majesty',
+      medium: 'Acrylic on Canvas',
       year: '2024'
     },
     {
       id: 3,
-      src: '/Annapurna.jpg',
-      title: 'Ocean Whisper',
-      medium: 'Watercolor',
+      src: '/Hallstatt.jpg',
+      title: 'Hallstatt Reflections',
+      medium: 'Acrlic on Canvas',
       year: '2023'
     }
   ];
