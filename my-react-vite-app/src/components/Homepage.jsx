@@ -9,21 +9,21 @@ const Homepage = () => {
   const artworkImages = [
     {
       id: 1,
-      src: '/api/placeholder/400/500',
+      src: '/src/public/images/Annapurna.jpg',
       title: 'Sunset Dreams',
       medium: 'Oil on Canvas',
       year: '2024'
     },
     {
       id: 2,
-      src: '/api/placeholder/400/500',
+      src: '/src/public/images/Annapurna.jpg',
       title: 'Urban Rhythm',
       medium: 'Acrylic',
       year: '2024'
     },
     {
       id: 3,
-      src: '/api/placeholder/400/500',
+      src: '/src/public/images/Annapurna.jpg',
       title: 'Ocean Whisper',
       medium: 'Watercolor',
       year: '2023'
@@ -43,7 +43,7 @@ const Homepage = () => {
       <nav className="navbar">
         <div className="nav-container">
           <div className="logo">
-            <span className="logo-text">ArtGallery</span>
+            <span className="logo-text">Bipana's Brushwork</span>
           </div>
           
           <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
