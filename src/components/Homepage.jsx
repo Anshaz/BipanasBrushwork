@@ -98,18 +98,20 @@ const Homepage = () => {
         <div className="container">
           <h2 className="section-title">Latest Works</h2>
           <div className="gallery-grid">
-            {artworks.map(artwork => (
-              <div key={artwork.id} className="gallery-item">
-                <img src={artwork.image} alt={artwork.title} /> {/* Change from artwork.src to artwork.image */}
-                <div className="item-info">
-                  <h4>{artwork.title}</h4>
-                  <span>{artwork.medium}</span>
+            {artworks
+              .filter(artwork => artwork.latestWork === true) // Only show latest works
+              .map(artwork => (
+                <div key={artwork.id} className="gallery-item">
+                  <img src={artwork.image} alt={artwork.title} />
+                  <div className="item-info">
+                    <h4>{artwork.title}</h4>
+                    <span>{artwork.medium}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            }
           </div>
           <div className="view-all">
-            {/* Update this button to use Link */}
             <Link to="/gallery" className="btn btn-outline">View All Artworks</Link>
           </div>
         </div>
