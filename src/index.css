@@ -22,3 +22,7 @@ ul {
 button {
   cursor: pointer;
 }
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}

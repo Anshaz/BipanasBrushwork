@@ -1,42 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link
 import './Homepage.css';
+import artworks from '../data/artworks';
 
 const Homepage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Sample artwork data - replace with your actual images
-  const artworkImages = [
-    {
-      id: 1,
-      src: '/Annapurna.jpg',
-      title: 'Annapurna Serenity',
-      medium: 'Acrylic on Canvas',
-      year: '2024'
-    },
-    {
-      id: 2,
-      src: '/Everest.jpg',
-      title: 'Everest Majesty',
-      medium: 'Acrylic on Canvas',
-      year: '2024'
-    },
-    {
-      id: 3,
-      src: '/Hallstatt.jpg',
-      title: 'Hallstatt Reflections',
-      medium: 'Acrlic on Canvas',
-      year: '2023'
-    }
-  ];
-
-
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % artworkImages.length);
+      setCurrentImageIndex((prev) => (prev + 1) % artworks.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [artworkImages.length]);
+  }, [artworks.length]);
 
   return (
     <div className="homepage">
@@ -48,7 +24,8 @@ const Homepage = () => {
           </div>
           
           <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-            <a href="#gallery" className="nav-link">Gallery</a>
+            {/* Change anchor tags to Link components */}
+            <Link to="/gallery" className="nav-link">Gallery</Link>
             <a href="#about" className="nav-link">About</a>
             <a href="#contact" className="nav-link">Contact</a>
           </div>
@@ -75,7 +52,8 @@ const Homepage = () => {
             Discover a collection of unique artworks that tell stories through color, texture, and emotion.
           </p>
           <div className="hero-buttons">
-            <button className="btn btn-primary">View Gallery</button>
+            {/* Update this button to use Link */}
+            <Link to="/gallery" className="btn btn-primary">View Gallery</Link>
             <button className="btn btn-secondary">Commission Work</button>
           </div>
         </div>
@@ -83,14 +61,14 @@ const Homepage = () => {
         {/* Featured Artwork Carousel */}
         <div className="featured-artwork">
           <div className="artwork-carousel">
-            {artworkImages.map((artwork, index) => (
+            {artworks.map((artwork, index) => (
               <div
                 key={artwork.id}
                 className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
               >
                 <div className="artwork-card">
                   <img 
-                    src={artwork.src} 
+                    src={artwork.image}
                     alt={artwork.title}
                     className="artwork-image"
                   />
@@ -104,7 +82,7 @@ const Homepage = () => {
           </div>
           
           <div className="carousel-indicators">
-            {artworkImages.map((_, index) => (
+            {artworks.map((_, index) => (
               <button
                 key={index}
                 className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
@@ -120,9 +98,9 @@ const Homepage = () => {
         <div className="container">
           <h2 className="section-title">Latest Works</h2>
           <div className="gallery-grid">
-            {artworkImages.map(artwork => (
+            {artworks.map(artwork => (
               <div key={artwork.id} className="gallery-item">
-                <img src={artwork.src} alt={artwork.title} />
+                <img src={artwork.image} alt={artwork.title} /> {/* Change from artwork.src to artwork.image */}
                 <div className="item-info">
                   <h4>{artwork.title}</h4>
                   <span>{artwork.medium}</span>
@@ -131,7 +109,8 @@ const Homepage = () => {
             ))}
           </div>
           <div className="view-all">
-            <button className="btn btn-outline">View All Artworks</button>
+            {/* Update this button to use Link */}
+            <Link to="/gallery" className="btn btn-outline">View All Artworks</Link>
           </div>
         </div>
       </section>
@@ -141,7 +120,7 @@ const Homepage = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h3>ArtGallery</h3>
+              <h3>Bipana's Brushwork</h3> {/* Updated name */}
               <p>Showcasing unique artworks and creative expressions.</p>
             </div>
             <div className="footer-section">
@@ -154,7 +133,7 @@ const Homepage = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2024 ArtGallery. All rights reserved.</p>
+            <p>&copy; 2024 Bipana's Brushwork. All rights reserved.</p> {/* Updated name */}
           </div>
         </div>
       </footer>

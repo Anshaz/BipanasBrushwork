@@ -60,6 +60,34 @@ body {
   gap: 2rem;
 }
 
+/* Ensure Link components look like regular nav links */
+.nav-menu a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-menu a:hover {
+  color: var(--secondary-color);
+}
+
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--secondary-color);
+  transition: var(--transition);
+}
+
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
 .nav-link {
   text-decoration: none;
   color: var(--text-color);
@@ -141,6 +169,13 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+/* Style buttons that are actually Links */
+.hero-buttons a,
+.view-all a {
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn {
