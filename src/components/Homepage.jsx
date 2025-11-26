@@ -1,11 +1,12 @@
+// src/components/Homepage.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
+import Navbar from './Navbar'; // Import the shared Navbar
 import './Homepage.css';
 import artworks from '../data/artworks';
 
 const Homepage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -16,129 +17,109 @@ const Homepage = () => {
 
   return (
     <div className="homepage">
-      {/* Navigation */}
-      <nav className="navbar">
-        <div className="nav-container">
-          <div className="logo">
-            <span className="logo-text">Bipana's Brushwork</span>
-          </div>
-          
-          <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-            {/* Change anchor tags to Link components */}
-            <Link to="/gallery" className="nav-link">Gallery</Link>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#contact" className="nav-link">Contact</a>
-          </div>
+      {/* Use shared Navbar */}
+      <Navbar />
 
-          <button 
-            className="menu-toggle"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">
-            Welcome to My
-            <span className="highlight"> Art World</span>
-          </h1>
-          <p className="hero-subtitle">
-            Discover a collection of unique artworks that tell stories through color, texture, and emotion.
-          </p>
-          <div className="hero-buttons">
-            {/* Update this button to use Link */}
-            <Link to="/gallery" className="btn btn-primary">View Gallery</Link>
-            <button className="btn btn-secondary">Commission Work</button>
-          </div>
-        </div>
-        
-        {/* Featured Artwork Carousel */}
-        <div className="featured-artwork">
-          <div className="artwork-carousel">
-            {artworks.map((artwork, index) => (
-              <div
-                key={artwork.id}
-                className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
-              >
-                <div className="artwork-card">
-                  <img 
-                    src={artwork.image}
-                    alt={artwork.title}
-                    className="artwork-image"
-                  />
-                  <div className="artwork-overlay">
-                    <h3>{artwork.title}</h3>
-                    <p>{artwork.medium} • {artwork.year}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="carousel-indicators">
-            {artworks.map((_, index) => (
-              <button
-                key={index}
-                className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
-                onClick={() => setCurrentImageIndex(index)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Preview */}
-      <section id="gallery" className="gallery-preview">
-        <div className="container">
-          <h2 className="section-title">Latest Works</h2>
-          <div className="gallery-grid">
-            {artworks
-              .filter(artwork => artwork.latestWork === true) // Only show latest works
-              .map(artwork => (
-                <div key={artwork.id} className="gallery-item">
-                  <img src={artwork.image} alt={artwork.title} />
-                  <div className="item-info">
-                    <h4>{artwork.title}</h4>
-                    <span>{artwork.medium}</span>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-          <div className="view-all">
-            <Link to="/gallery" className="btn btn-outline">View All Artworks</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-section">
-              <h3>Bipana's Brushwork</h3> {/* Updated name */}
-              <p>Showcasing unique artworks and creative expressions.</p>
-            </div>
-            <div className="footer-section">
-              <h4>Connect</h4>
-              <div className="social-links">
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Twitter">TW</a>
-                <a href="#" aria-label="Facebook">FB</a>
-              </div>
+      {/* Add top padding to account for fixed navbar */}
+      <div style={{ paddingTop: '80px' }}>
+        {/* Hero Section */}
+        <section className="hero">
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Welcome to My
+              <span className="highlight"> Art World</span>
+            </h1>
+            <p className="hero-subtitle">
+              Discover a collection of unique artworks that tell stories through color, texture, and emotion.
+            </p>
+            <div className="hero-buttons">
+              <Link to="/gallery" className="btn btn-primary">View Gallery</Link>
+              <button className="btn btn-secondary">Commission Work</button>
             </div>
           </div>
-          <div className="footer-bottom">
-            <p>&copy; 2024 Bipana's Brushwork. All rights reserved.</p> {/* Updated name */}
+          
+          {/* Featured Artwork Carousel */}
+          <div className="featured-artwork">
+            <div className="artwork-carousel">
+              {artworks.map((artwork, index) => (
+                <div
+                  key={artwork.id}
+                  className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
+                >
+                  <div className="artwork-card">
+                    <img 
+                      src={artwork.image} 
+                      alt={artwork.title}
+                      className="artwork-image"
+                    />
+                    <div className="artwork-overlay">
+                      <h3>{artwork.title}</h3>
+                      <p>{artwork.medium} • {artwork.year}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="carousel-indicators">
+              {artworks.map((_, index) => (
+                <button
+                  key={index}
+                  className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                  onClick={() => setCurrentImageIndex(index)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </footer>
+        </section>
+
+        {/* Gallery Preview */}
+        <section id="gallery" className="gallery-preview">
+          <div className="container">
+            <h2 className="section-title">Latest Works</h2>
+            <div className="gallery-grid">
+              {artworks
+                .filter(artwork => artwork.latestWork === true)
+                .map(artwork => (
+                  <div key={artwork.id} className="gallery-item">
+                    <img src={artwork.image} alt={artwork.title} />
+                    <div className="item-info">
+                      <h4>{artwork.title}</h4>
+                      <span>{artwork.medium}</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <div className="view-all">
+              <Link to="/gallery" className="btn btn-outline">View All Artworks</Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="footer">
+          <div className="container">
+            <div className="footer-content">
+              <div className="footer-section">
+                <h3>Bipana's Brushwork</h3>
+                <p>Showcasing unique artworks and creative expressions.</p>
+              </div>
+              <div className="footer-section">
+                <h4>Connect</h4>
+                <div className="social-links">
+                  <a href="#" aria-label="Instagram">IG</a>
+                  <a href="#" aria-label="Twitter">TW</a>
+                  <a href="#" aria-label="Facebook">FB</a>
+                </div>
+              </div>
+            </div>
+            <div className="footer-bottom">
+              <p>&copy; 2024 Bipana's Brushwork. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 };
