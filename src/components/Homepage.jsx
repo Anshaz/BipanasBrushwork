@@ -34,7 +34,7 @@ const Homepage = () => {
             </p>
             <div className="hero-buttons">
               <Link to="/gallery" className="btn btn-primary">View Gallery</Link>
-              <button className="btn btn-secondary">Commission Work</button>
+              {/* <button className="btn btn-secondary">Commission Work</button> */}
             </div>
           </div>
           

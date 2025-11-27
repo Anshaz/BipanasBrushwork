@@ -38,20 +38,23 @@ const GalleryPage = () => {
                     onClick={() => setSelectedArtwork(artwork)}
                   >
                     <div className="artwork-image-container">
-                      <img 
-                        src={artwork.image} 
-                        alt={artwork.title}
-                        className="artwork-image"
-                        loading="lazy"
-                      />
-                      <div className="artwork-overlay">
-                        <div className="overlay-content">
-                          <span className="view-button">View Details</span>
+                        <img
+                            src={artwork.image}
+                            alt={artwork.title}
+                            className="artwork-image"
+                            loading="lazy"
+                        />
+                        <div className="artwork-overlay">
+                            <div className="overlay-content">
+                                <span className="view-button">View Details</span>
+                                {artwork.onEtsy && (
+                                    <span className="buy-button">Buy on Etsy!</span>
+                                )}
+                            </div>
                         </div>
-                      </div>
-                      {artwork.isFeatured && (
-                        <div className="featured-badge">Featured</div>
-                      )}
+                        {artwork.isFeatured && (
+                            <div className="featured-badge">Featured</div>
+                        )}
                     </div>
                     
                     <div className="artwork-info">
