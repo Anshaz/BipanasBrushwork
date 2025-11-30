@@ -6,7 +6,7 @@ const artworks = [
         medium: 'Acrylic on Canvas',
         year: '2024',
         onEtsy: true,
-        etsyLink: 'https://www.etsy.com/listing/1361534567/annapurna-serenity-mountain-landscape',
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1786945387/hand-painted-annapurna-mountain-acrylic',
         latestWork: true,
         dimensions: ''
     },
@@ -17,7 +17,7 @@ const artworks = [
         medium: 'Acrylic on Canvas',
         year: '2024',
         onEtsy: true,
-        etsyLink: 'https://www.etsy.com/listing/1361535123/everest-majesty-mountain-landscape',
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659202939/mount-everest-acrylic-painting-himalayan',
         latestWork: true,
         dimensions: ''
 
@@ -29,7 +29,7 @@ const artworks = [
         medium: 'Acrlic on Canvas',
         year: '2024',
         onEtsy: true,
-        etsyLink: 'https://www.etsy.com/listing/1361535675/everest-village-mountain-landscape',
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659158225/textured-mount-everest-painting-original',
         latestWork: true,
         dimensions: ''
 
@@ -53,7 +53,7 @@ const artworks = [
         medium: 'Acrlic on Canvas',
         year: '2024',
         onEtsy: true,
-        etsyLink: 'https://www.etsy.com/listing/1361536231/abstract-mountains-modern-art',
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1794469801/mount-everest-painting-abstract-himalaya',
         latestWork: false,
         dimensions: ''
 
@@ -63,9 +63,69 @@ const artworks = [
         image: '/MountainVillage.jpg',
         title: 'Mountain Village',
         medium: 'Acrlic on Canvas',
-        year: '5',
+        year: '2024',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        dimensions: ''
+
+    },
+    {
+        id: 7,
+        image: '/Hallstatt.jpg',
+        title: 'Hallstatt Austria',
+        medium: 'Acrlic on Canvas',
+        year: '2023',
         onEtsy: true,
-        etsyLink: 'https://www.etsy.com/listing/1361536753/mountain-village-landscape-painting',
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1634848506/handmade-hallstatt-austria-acrylic',
+        latestWork: false,
+        dimensions: ''
+
+    },
+    {
+        id: 8,
+        image: '/Sunset.jpg',
+        title: 'Sunset Bliss',
+        medium: 'Oil on Canvas',
+        year: '2024',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1773626307/handmade-sunset-oil-painting-dramatic',
+        latestWork: false,
+        dimensions: ''
+
+    },
+    {
+        id: 9,
+        image: '/PanaromaEverest.jpg',
+        title: 'Everest Panorama',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1848887830/annapurna-nepal-acrylic-painting',
+        latestWork: false,
+        dimensions: ''
+
+    },
+    {
+        id: 10,
+        image: '/Palampur.jpg',
+        title: 'Palampur Hills',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1718248803/himalayan-landscape-oil-painting',
+        latestWork: false,
+        dimensions: ''
+
+    },
+    {
+        id: 11,
+        image: '/EverestVillagecolorful.jpg',
+        title: 'Everest Village Colorful',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
         latestWork: false,
         dimensions: ''
 
