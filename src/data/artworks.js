@@ -8,6 +8,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1786945387/hand-painted-annapurna-mountain-acrylic',
         latestWork: true,
+        isFeatured: false,
         dimensions: ''
     },
     {
@@ -19,6 +20,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659202939/mount-everest-acrylic-painting-himalayan',
         latestWork: true,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -31,6 +33,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659158225/textured-mount-everest-painting-original',
         latestWork: true,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -43,6 +46,7 @@ const artworks = [
         onEtsy: false,
         etsyLink: '',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -55,6 +59,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1794469801/mount-everest-painting-abstract-himalaya',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -67,6 +72,7 @@ const artworks = [
         onEtsy: false,
         etsyLink: '',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -79,6 +85,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1634848506/handmade-hallstatt-austria-acrylic',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -91,6 +98,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1773626307/handmade-sunset-oil-painting-dramatic',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -103,6 +111,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1848887830/annapurna-nepal-acrylic-painting',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -115,6 +124,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1718248803/himalayan-landscape-oil-painting',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     },
@@ -127,6 +137,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
         latestWork: false,
+        isFeatured: false,
         dimensions: ''
 
     }

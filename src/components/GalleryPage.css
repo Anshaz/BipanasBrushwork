@@ -125,6 +125,28 @@
 
 .artwork-info {
   padding: 1.5rem;
+  position: relative;
+}
+
+.etsy-link-mobile {
+  margin-top: 0.75rem;
+}
+
+.etsy-link-text {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.etsy-link-text:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
 }
 
 .artwork-title {
@@ -178,6 +200,10 @@
     gap: 1.5rem;
     padding: 0 1rem;
   }
+
+  .etsy-link-mobile {
+    display: none;
+  }
   
   .gallery-grid-section {
     padding: 1.5rem 0;
@@ -197,6 +223,14 @@
     gap: 0.75rem;
 }
 }
+
+/* Show mobile Etsy link only on mobile */
+@media (max-width: 767px) {
+  .etsy-link-mobile {
+    display: block;
+  }
+}
+
 
 @media (max-width: 480px) {
   .artworks-grid {

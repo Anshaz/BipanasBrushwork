@@ -179,7 +179,7 @@ const ImageZoomModal = ({
         <div className="modal-footer">
           <div className="artwork-description">
             {artwork.description && (
-              <p className="description">{artwork.description}</p>
+              <p className="description">{artwork.title}</p>
             )}
             {artwork.price && (
               <p className="artwork-price">${artwork.price}</p>

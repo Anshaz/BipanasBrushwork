@@ -14,14 +14,21 @@ const GalleryPage = () => {
     setAllArtworks(artworks);
   }, []);
 
+  // Handle Etsy button click - open in new tab
+  const handleEtsyClick = (e, etsyLink) => {
+    e.stopPropagation(); // Prevent triggering the parent click
+    window.open(etsyLink, '_blank', 'noopener,noreferrer');
+  };
+
+  // Handle card click - only open modal
+  const handleCardClick = (artwork) => {
+    setSelectedArtwork(artwork);
+  };
+
   return (
     <div className="gallery-page">
-      {/* Use shared Navbar */}
       <Navbar />
-
-      {/* Add top padding to account for fixed navbar */}
       <div style={{ paddingTop: '80px' }}>
-        {/* Artworks Grid */}
         <section className="gallery-grid-section">
           <div className="container">
             {allArtworks.length === 0 ? (
@@ -35,26 +42,31 @@ const GalleryPage = () => {
                   <div 
                     key={artwork.id} 
                     className="artwork-card"
-                    onClick={() => setSelectedArtwork(artwork)}
+                    onClick={() => handleCardClick(artwork)}
                   >
                     <div className="artwork-image-container">
-                        <img
-                            src={artwork.image}
-                            alt={artwork.title}
-                            className="artwork-image"
-                            loading="lazy"
-                        />
-                        <div className="artwork-overlay">
-                            <div className="overlay-content">
-                                <span className="view-button">View Details</span>
-                                {artwork.onEtsy && (
-                                    <span className="buy-button">Buy on Etsy!</span>
-                                )}
-                            </div>
+                      <img 
+                        src={artwork.image} 
+                        alt={artwork.title}
+                        className="artwork-image"
+                        loading="lazy"
+                      />
+                      <div className="artwork-overlay">
+                        <div className="overlay-content">
+                          <span className="view-button">View Details</span>
+                          {artwork.onEtsy && artwork.etsyLink && (
+                            <span 
+                              className="buy-button"
+                              onClick={(e) => handleEtsyClick(e, artwork.etsyLink)}
+                            >
+                              Buy on Etsy!
+                            </span>
+                          )}
                         </div>
-                        {artwork.isFeatured && (
-                            <div className="featured-badge">Featured</div>
-                        )}
+                      </div>
+                      {artwork.isFeatured && (
+                        <div className="featured-badge">Featured</div>
+                      )}
                     </div>
                     
                     <div className="artwork-info">
@@ -67,6 +79,19 @@ const GalleryPage = () => {
                       {artwork.price && (
                         <p className="artwork-price">${artwork.price}</p>
                       )}
+                      {artwork.onEtsy && artwork.etsyLink && (
+                        <div className="etsy-link-mobile">
+                          <a 
+                            href={artwork.etsyLink} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="etsy-link-text"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Available on Etsy
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -75,7 +100,6 @@ const GalleryPage = () => {
           </div>
         </section>
 
-        {/* Zoom Modal */}
         {selectedArtwork && (
           <ImageZoomModal 
             artwork={selectedArtwork}
