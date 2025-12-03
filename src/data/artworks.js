@@ -155,9 +155,48 @@ const artworks = [
 
     },
     {
-        id: 11,
+        id: 13,
         image: '/LadyInWhite.jpg',
         title: 'Lady in White',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        isFeatured: false,
+        dimensions: ''
+
+    },
+    {
+        id: 14,
+        image: '/CloudyMountains.jpg',
+        title: 'Cloudy Mountains',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        isFeatured: false,
+        dimensions: ''
+
+    },
+    {
+        id: 15,
+        image: '/Jam on Toast.jpg',
+        title: 'Jam on Toast',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        isFeatured: false,
+        dimensions: ''
+
+    },
+    {
+        id: 16,
+        image: '/Peanut Butter on Toast.jpg',
+        title: 'Peanut Butter on Toast',
         medium: 'Acrlic on Canvas',
         year: '2025',
         onEtsy: false,
