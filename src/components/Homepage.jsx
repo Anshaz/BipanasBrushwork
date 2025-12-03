@@ -9,11 +9,15 @@ const Homepage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % artworks.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [artworks.length]);
+    const featuredArtworks = artworks.filter(artwork => artwork.isFeatured);
+
+    if (featuredArtworks.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % featuredArtworks.length);
+      }, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [artworks]); // Changed dependency to artworks
 
   return (
     <div className="homepage">
@@ -37,39 +41,48 @@ const Homepage = () => {
               {/* <button className="btn btn-secondary">Commission Work</button> */}
             </div>
           </div>
-          
+
           {/* Featured Artwork Carousel */}
           <div className="featured-artwork">
             <div className="artwork-carousel">
-              {artworks.map((artwork, index) => (
-                <div
-                  key={artwork.id}
-                  className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
-                >
-                  <div className="artwork-card">
-                    <img 
-                      src={artwork.image} 
-                      alt={artwork.title}
-                      className="artwork-image"
-                    />
-                    <div className="artwork-overlay">
-                      <h3>{artwork.title}</h3>
-                      <p>{artwork.medium} • {artwork.year}</p>
+              {artworks
+                .filter(artwork => artwork.isFeatured) // Only show featured artworks
+                .map((artwork, index) => (
+                  <div
+                    key={artwork.id}
+                    className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
+                  >
+                    <div className="artwork-card">
+                      <img
+                        src={artwork.image}
+                        alt={artwork.title}
+                        className="artwork-image"
+                      />
+                      <div className="artwork-overlay">
+                        <h3>{artwork.title}</h3>
+                        <p>{artwork.medium} • {artwork.year}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              }
             </div>
-            
-            <div className="carousel-indicators">
-              {artworks.map((_, index) => (
-                <button
-                  key={index}
-                  className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
-                  onClick={() => setCurrentImageIndex(index)}
-                />
-              ))}
-            </div>
+
+            {/* Only show indicators if there are featured artworks */}
+            {artworks.filter(artwork => artwork.isFeatured).length > 0 && (
+              <div className="carousel-indicators">
+                {artworks
+                  .filter(artwork => artwork.isFeatured) // Filter for indicators too
+                  .map((_, index) => (
+                    <button
+                      key={index}
+                      className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))
+                }
+              </div>
+            )}
           </div>
         </section>
 

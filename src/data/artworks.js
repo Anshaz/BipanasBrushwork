@@ -20,7 +20,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659202939/mount-everest-acrylic-painting-himalayan',
         latestWork: true,
-        isFeatured: false,
+        isFeatured: true,
         dimensions: ''
 
     },
@@ -45,8 +45,8 @@ const artworks = [
         year: '2025',
         onEtsy: false,
         etsyLink: '',
-        latestWork: false,
-        isFeatured: false,
+        latestWork: true,
+        isFeatured: true,
         dimensions: ''
 
     },
@@ -85,7 +85,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1634848506/handmade-hallstatt-austria-acrylic',
         latestWork: false,
-        isFeatured: false,
+        isFeatured: true,
         dimensions: ''
 
     },
@@ -137,7 +137,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
         latestWork: false,
-        isFeatured: false,
+        isFeatured: true,
         dimensions: ''
 
     },
@@ -176,7 +176,7 @@ const artworks = [
         onEtsy: false,
         etsyLink: '',
         latestWork: false,
-        isFeatured: false,
+        isFeatured: true,
         dimensions: ''
 
     },
