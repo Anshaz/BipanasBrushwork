@@ -140,6 +140,32 @@ const artworks = [
         isFeatured: false,
         dimensions: ''
 
+    },
+    {
+        id: 12,
+        image: '/HimalayaYak.jpg',
+        title: 'Himalaya Yak',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        isFeatured: false,
+        dimensions: ''
+
+    },
+    {
+        id: 11,
+        image: '/LadyInWhite.jpg',
+        title: 'Lady in White',
+        medium: 'Acrlic on Canvas',
+        year: '2025',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        isFeatured: false,
+        dimensions: ''
+
     }
 ];
 
