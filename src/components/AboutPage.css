@@ -15,6 +15,70 @@
   padding: 4rem 0;
 }
 
+.artist-image-container {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+.artist-image-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.artist-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: var(--transition);
+}
+
+.artist-image-container:hover .artist-image {
+  transform: scale(1.05);
+}
+
+.artist-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      transparent 100%);
+  color: white;
+  padding: 2rem 1.5rem 1.5rem;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.artist-image-container:hover .artist-image-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay-content {
+  text-align: center;
+}
+
+.overlay-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.overlay-content p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -244,65 +308,102 @@
     gap: 2rem;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .story-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .quick-facts {
     position: static;
+  }
+
+  .artist-image-container {
+    width: 280px;
+    height: 380px;
   }
 }
 
 @media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .artist-image-container {
+    width: 250px;
+    height: 350px;
+    margin: 0 auto;
+  }
+
+  .artist-image-overlay {
+    opacity: 1;
+    /* Always show on mobile */
+    transform: translateY(0);
+    padding: 1.5rem 1rem 1rem;
+  }
+
   .about-hero {
     padding: 3rem 0;
   }
-  
+
   .story-section,
   .inspiration-section {
     padding: 4rem 0;
   }
-  
+
   .cta-section {
     padding: 4rem 0;
   }
-  
+
   .hero-title {
     font-size: 2rem;
   }
-  
+
   .story-content h2,
   .inspiration-section h2,
   .cta-content h2 {
     font-size: 2rem;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .cta-buttons .btn {
     width: 200px;
   }
 }
 
 @media (max-width: 480px) {
+  .artist-image-container {
+    width: 220px;
+    height: 320px;
+  }
+
+  .overlay-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .overlay-content p {
+    font-size: 0.85rem;
+  }
+
   .image-placeholder {
     width: 250px;
     height: 350px;
   }
-  
+
   .inspiration-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .facts-card {
     padding: 1.5rem;
   }

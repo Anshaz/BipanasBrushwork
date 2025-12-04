@@ -121,14 +121,14 @@ const Homepage = () => {
               <div className="footer-section">
                 <h4>Connect</h4>
                 <div className="social-links">
-                  <a href="#" aria-label="Instagram">IG</a>
-                  <a href="#" aria-label="Twitter">TW</a>
-                  <a href="#" aria-label="Facebook">FB</a>
+                  <a href="https://www.instagram.com/brushworkbybipana" aria-label="Instagram">IG</a>
+                  <a href="https://bipanasbrushwork.etsy.com" aria-label="Etsy">ET</a>
+                  <a href="https://de.pinterest.com/bipanadahal8844/" aria-label="Pinterest">PI</a>
                 </div>
               </div>
             </div>
             <div className="footer-bottom">
-              <p>&copy; 2024 Bipana's Brushwork. All rights reserved.</p>
+              <p>&copy; 2025 Bipana's Brushwork. All rights reserved.</p>
             </div>
           </div>
         </footer>

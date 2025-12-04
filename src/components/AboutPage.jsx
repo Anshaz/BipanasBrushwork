@@ -8,7 +8,7 @@ const AboutPage = () => {
   return (
     <div className="about-page">
       <Navbar />
-      
+
       <div className="about-content">
         {/* Hero Section */}
         <section className="about-hero">
@@ -21,9 +21,18 @@ const AboutPage = () => {
                 </p>
               </div>
               <div className="hero-image">
-                <div className="image-placeholder">
-                  <span>Artist Photo</span>
-                  <p>Upload your photo to replace this placeholder</p>
+                <div className="artist-image-container">
+                  <img
+                    src="/bipana.jpg"
+                    alt="Bipana - Artist"
+                    className="artist-image"
+                  />
+                  <div className="artist-image-overlay">
+                    <div className="overlay-content">
+                      <h3>Bipana</h3>
+                      <p>Artist & Creator</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -38,33 +47,33 @@ const AboutPage = () => {
                 <h2>My Artistic Journey</h2>
                 <div className="story-text">
                   <p>
-                    Welcome to my world of colors, textures, and emotions. I'm Bipana, an artist 
-                    passionate about capturing the beauty of nature and the essence of human 
+                    Welcome to my world of colors, textures, and emotions. I'm Bipana, an artist
+                    passionate about capturing the beauty of nature and the essence of human
                     experience through my paintings.
                   </p>
                   <p>
-                    My journey began as a child, fascinated by the way light dances on surfaces 
-                    and how colors can evoke deep emotions. Over the years, I've developed a 
-                    unique style that blends traditional techniques with contemporary expressions, 
+                    My journey began as a child, fascinated by the way light dances on surfaces
+                    and how colors can evoke deep emotions. Over the years, I've developed a
+                    unique style that blends traditional techniques with contemporary expressions,
                     creating artworks that speak to the soul.
                   </p>
                   <p>
-                    Each piece I create is a reflection of my connection with the world around me - 
-                    from the majestic mountains that inspire awe to the quiet moments of everyday 
+                    Each piece I create is a reflection of my connection with the world around me -
+                    from the majestic mountains that inspire awe to the quiet moments of everyday
                     life that deserve celebration.
                   </p>
                 </div>
-                
+
                 <div className="artistic-philosophy">
                   <h3>Artistic Philosophy</h3>
                   <p>
-                    I believe that art should not only be visually appealing but also emotionally 
-                    resonant. My work aims to create a dialogue between the viewer and the artwork, 
+                    I believe that art should not only be visually appealing but also emotionally
+                    resonant. My work aims to create a dialogue between the viewer and the artwork,
                     inviting personal interpretations and emotional connections.
                   </p>
                 </div>
               </div>
-              
+
               <div className="quick-facts">
                 <div className="facts-card">
                   <h3>Quick Facts</h3>
@@ -82,11 +91,11 @@ const AboutPage = () => {
                   </div>
                   <div className="fact-item">
                     <span className="fact-label">Location</span>
-                    <span className="fact-value">Based in [Your City]</span>
+                    <span className="fact-value">Based in Nuremberg</span>
                   </div>
                   <div className="fact-item">
                     <span className="fact-label">Education</span>
-                    <span className="fact-value">[Your Education Background]</span>
+                    <span className="fact-value">Bachelor in Management</span>
                   </div>
                 </div>
               </div>
