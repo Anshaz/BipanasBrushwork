@@ -88,7 +88,7 @@ const GalleryPage = () => {
                             className="etsy-link-text"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            Available on Etsy
+                            Buy on Etsy
                           </a>
                         </div>
                       )}
