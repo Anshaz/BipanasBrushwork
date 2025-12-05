@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import './ImageZoomModal.css';
 
-const ImageZoomModal = ({ 
-  artwork, 
-  onClose, 
-  onNext, 
-  onPrev, 
-  hasNext, 
-  hasPrev 
+const ImageZoomModal = ({
+  artwork,
+  onClose,
+  onNext,
+  onPrev,
+  hasNext,
+  hasPrev
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -22,7 +22,7 @@ const ImageZoomModal = ({
     setPosition({ x: 0, y: 0 });
     setImageLoaded(false);
   }, [artwork]);
-
+  console.log(artwork);
   // Close on Escape key
   useEffect(() => {
     const handleEscape = (e) => {
@@ -89,24 +89,53 @@ const ImageZoomModal = ({
         {/* Header */}
         <div className="modal-header">
           <div className="artwork-info">
-            <h2 className="artwork-title">{artwork.title}</h2>
-            <p className="artwork-details">
-              {artwork.medium} · {artwork.year}
-              {artwork.dimensions && ` · ${artwork.dimensions}`}
-            </p>
+            <h3 className="artwork-title">{artwork.title}</h3>
+            <p className="artwork-medium">{artwork.medium}</p>
+            <p className="artwork-year">{artwork.year}</p>
+            {artwork.dimensions && (
+              <p className="artwork-dimensions">{artwork.dimensions}</p>
+            )}
+            {artwork.price && (
+              <p className="artwork-price">${artwork.price}</p>
+            )}
+
+            {/* Conditional Etsy status */}
+            {artwork.onEtsy ? (
+              <div className="etsy-link-mobile">
+                <a
+                  href={artwork.etsyLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="etsy-link-text"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                Buy on Etsy
+                </a>
+              </div>
+            ) : (
+              <div className="not-on-etsy-message">
+                <p className="not-on-etsy-text">
+                  This artwork is currently not on Etsy.
+                  <br />
+                  <a href="/contact" className="contact-link">
+                    Contact us to place an order
+                  </a>
+                </p>
+              </div>
+            )}
           </div>
           <div className="modal-controls">
             <div className="zoom-controls">
-              <button 
-                onClick={zoomOut} 
+              <button
+                onClick={zoomOut}
                 disabled={zoomLevel <= 0.5}
                 className="zoom-btn"
               >
                 −
               </button>
               <span className="zoom-level">{Math.round(zoomLevel * 100)}%</span>
-              <button 
-                onClick={zoomIn} 
+              <button
+                onClick={zoomIn}
                 disabled={zoomLevel >= 3}
                 className="zoom-btn"
               >
@@ -132,8 +161,8 @@ const ImageZoomModal = ({
               <p>Loading image...</p>
             </div>
           )}
-          
-          <div 
+
+          <div
             className="image-wrapper"
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
@@ -156,8 +185,8 @@ const ImageZoomModal = ({
 
           {/* Navigation Arrows */}
           {hasPrev && (
-            <button 
-              onClick={onPrev} 
+            <button
+              onClick={onPrev}
               className="nav-arrow nav-arrow-prev"
               aria-label="Previous artwork"
             >
@@ -165,8 +194,8 @@ const ImageZoomModal = ({
             </button>
           )}
           {hasNext && (
-            <button 
-              onClick={onNext} 
+            <button
+              onClick={onNext}
               className="nav-arrow nav-arrow-next"
               aria-label="Next artwork"
             >

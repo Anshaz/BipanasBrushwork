@@ -1,4 +1,4 @@
-/* src/components/ImageZoomModal.css */
+/* src/components/ImageZoomModal.css - Updated */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -10,18 +10,20 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .modal-content {
   background: white;
   border-radius: 12px;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 95vw;
+  max-height: 95vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 90vw;
+  height: 90vh;
 }
 
 /* Header */
@@ -29,26 +31,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid #e1e5e9;
   background: white;
   flex-shrink: 0;
+  min-height: 70px;
 }
 
-.artwork-info {
-  flex: 1;
-}
-
-.artwork-title {
+.modal-title h2 {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--primary-color);
-  margin-bottom: 0.25rem;
-}
-
-.artwork-details {
-  color: var(--text-light);
-  font-size: 0.9rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
 }
 
 .modal-controls {
@@ -143,7 +141,7 @@
   justify-content: center;
   overflow: hidden;
   background: #f8f9fa;
-  min-height: 400px;
+  min-height: 0; /* Important for flex child */
 }
 
 .image-wrapper {
@@ -217,74 +215,147 @@
 
 /* Footer */
 .modal-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem;
   border-top: 1px solid #e1e5e9;
   background: white;
   flex-shrink: 0;
 }
 
-.artwork-description {
-  flex: 1;
-  margin-right: 2rem;
+.artwork-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
 }
 
-.description {
+.details-left {
+  flex: 1;
+}
+
+.details-right {
+  text-align: right;
+  min-width: 200px;
+}
+
+.artwork-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.artwork-info {
+  color: var(--text-light);
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+}
+
+.artwork-description {
   color: var(--text-color);
   line-height: 1.5;
-  margin-bottom: 0.5rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.price-section {
+  margin-bottom: 1rem;
+}
+
+.price-label {
+  display: block;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
 }
 
 .artwork-price {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--secondary-color);
 }
 
-.image-counter {
+.etsy-link-modal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #f16521;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.etsy-link-modal:hover {
+  background: #e55324;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(241, 101, 33, 0.3);
+}
+
+.not-on-etsy-text {
   color: var(--text-light);
   font-size: 0.9rem;
+  margin: 0;
+}
+
+.contact-link {
+  color: var(--accent-color);
+  text-decoration: none;
   font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .modal-overlay {
-    padding: 1rem;
-  }
-  
   .modal-content {
-    max-width: 95vw;
+    width: 95vw;
+    height: 95vh;
     max-height: 95vh;
   }
   
   .modal-header {
     padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
+    min-height: 60px;
   }
   
-  .modal-controls {
-    justify-content: space-between;
+  .modal-title h2 {
+    font-size: 1.2rem;
+    max-width: 200px;
   }
   
-  .modal-footer {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
+  .zoom-controls {
+    padding: 0.4rem;
   }
   
-  .artwork-description {
-    margin-right: 0;
+  .zoom-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+  
+  .zoom-level {
+    min-width: 40px;
+    font-size: 0.8rem;
+  }
+  
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
   }
   
   .nav-arrow {
     width: 40px;
     height: 40px;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
   
   .nav-arrow-prev {
@@ -294,15 +365,46 @@
   .nav-arrow-next {
     right: 0.5rem;
   }
+  
+  .modal-footer {
+    padding: 1rem;
+  }
+  
+  .artwork-details {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .details-right {
+    text-align: left;
+    width: 100%;
+  }
+  
+  .etsy-link-modal {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .zoom-controls {
-    flex-wrap: wrap;
-    justify-content: center;
+  .modal-overlay {
+    padding: 0.5rem;
   }
   
-  .artwork-title {
-    font-size: 1.25rem;
+  .modal-content {
+    width: 95vw;
+    height: 75vh;
+    max-height: 100vh;
+    border-radius: 10px;
+  }
+  
+  .modal-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .modal-title h2 {
+    max-width: 150px;
   }
 }
