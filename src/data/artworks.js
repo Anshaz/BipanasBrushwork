@@ -19,7 +19,7 @@ const artworks = [
         year: '2024',
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659202939/mount-everest-acrylic-painting-himalayan',
-        latestWork: true,
+        latestWork: false,
         isFeatured: true,
         dimensions: ''
 
@@ -32,7 +32,7 @@ const artworks = [
         year: '2024',
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659158225/textured-mount-everest-painting-original',
-        latestWork: true,
+        latestWork: false,
         isFeatured: false,
         dimensions: ''
 
@@ -71,7 +71,7 @@ const artworks = [
         year: '2024',
         onEtsy: false,
         etsyLink: '',
-        latestWork: false,
+        latestWork: true,
         isFeatured: false,
         dimensions: ''
 
@@ -136,7 +136,7 @@ const artworks = [
         year: '2025',
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
-        latestWork: false,
+        latestWork: true,
         isFeatured: true,
         dimensions: ''
 
@@ -203,6 +203,19 @@ const artworks = [
         etsyLink: '',
         latestWork: false,
         isFeatured: false,
+        dimensions: ''
+
+    },
+    {
+        id: 17,
+        image: '/sevenhorses.jpg',
+        title: 'Seven Horses',
+        medium: 'Acrlic on Canvas',
+        year: '2023',
+        onEtsy: false,
+        etsyLink: '',
+        latestWork: false,
+        isFeatured: true,
         dimensions: ''
 
     }
