@@ -22,7 +22,6 @@ const ImageZoomModal = ({
     setPosition({ x: 0, y: 0 });
     setImageLoaded(false);
   }, [artwork]);
-  console.log(artwork);
   // Close on Escape key
   useEffect(() => {
     const handleEscape = (e) => {

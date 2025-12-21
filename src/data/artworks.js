@@ -95,7 +95,7 @@ const artworks = [
         title: 'Sunset Bliss',
         medium: 'Oil on Canvas',
         year: '2024',
-        onEtsy: true,
+        onEtsy: false,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1773626307/handmade-sunset-oil-painting-dramatic',
         latestWork: false,
         isFeatured: false,
