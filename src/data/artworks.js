@@ -173,8 +173,8 @@ const artworks = [
         title: 'Cloudy Mountains',
         medium: 'Acrlic on Canvas',
         year: '2025',
-        onEtsy: false,
-        etsyLink: '',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4428567553/himalaya-range-acrylic-painting',
         latestWork: false,
         isFeatured: true,
         dimensions: ''
