@@ -212,8 +212,8 @@ const artworks = [
         title: 'Seven Horses',
         medium: 'Acrlic on Canvas',
         year: '2023',
-        onEtsy: false,
-        etsyLink: '',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4428589164/seven-lucky-horses-handmade-vastu-energy',
         latestWork: false,
         isFeatured: true,
         dimensions: ''
