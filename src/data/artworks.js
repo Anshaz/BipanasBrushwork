@@ -69,8 +69,8 @@ const artworks = [
         title: 'Mountain Village',
         medium: 'Acrlic on Canvas',
         year: '2024',
-        onEtsy: false,
-        etsyLink: '',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4429589187/hand-painted-machapuchare-fish-tail',
         latestWork: true,
         isFeatured: false,
         dimensions: ''
