@@ -25,7 +25,7 @@ const Homepage = () => {
       <Navbar />
 
       {/* Add top padding to account for fixed navbar */}
-      <div style={{ paddingTop: '80px' }}>
+      <div style={{ paddingTop: '50px' }}>
         {/* Hero Section */}
         <section className="hero">
           <div className="hero-content">
@@ -34,8 +34,7 @@ const Homepage = () => {
               <span className="highlight"> Art World</span>
             </h1>
             <p className="hero-subtitle">
-              Discover a collection of unique artworks that tell stories through color, texture, and emotion.
-            </p>
+              Explore original artworks shaped by the spirit of Nepal and the Himalayas, telling stories through rich color, texture, and emotion.            </p>
             <div className="hero-buttons">
               <Link to="/gallery" className="btn btn-primary">View Gallery</Link>
               {/* <button className="btn btn-secondary">Commission Work</button> */}

@@ -28,7 +28,7 @@ const GalleryPage = () => {
   return (
     <div className="gallery-page">
       <Navbar />
-      <div style={{ paddingTop: '80px' }}>
+      <div style={{ paddingTop: '30px' }}>
         <section className="gallery-grid-section">
           <div className="container">
             {allArtworks.length === 0 ? (

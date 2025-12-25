@@ -135,7 +135,7 @@ const AboutPage = () => {
               <p>Whether you're interested in purchasing existing artwork or commissioning a custom piece, I'd love to hear from you.</p>
               <div className="cta-buttons">
                 <Link to="/gallery" className="btn btn-primary">View My Gallery</Link>
-                <Link to="/contact" className="btn btn-secondary">Get In Touch</Link>
+                <Link to="/contact" className="btn btn-tertiary">Get In Touch</Link>
               </div>
             </div>
           </div>

@@ -136,7 +136,7 @@ const artworks = [
         year: '2025',
         onEtsy: true,
         etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
-        latestWork: true,
+        latestWork: false,
         isFeatured: true,
         dimensions: ''
 
