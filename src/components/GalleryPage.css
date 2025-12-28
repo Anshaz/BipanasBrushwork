@@ -176,7 +176,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f16521; /* Etsy orange */
+  background: #f16521;
+  /* Etsy orange */
   color: white;
   padding: 0.3rem 0.9rem;
   border-radius: 50px;
@@ -218,6 +219,7 @@
   margin-bottom: 1rem;
   color: var(--primary-color);
 }
+
 /* Add to your GalleryPage.css */
 .not-on-etsy-message {
   margin-top: 0.75rem;
@@ -264,13 +266,57 @@
   text-decoration: underline;
 }
 
+/* Add to GalleryPage.css */
+.artwork-interaction {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.like-btn,
+.comment-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: var(--transition);
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.like-btn:hover {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.comment-btn:hover {
+  color: var(--accent-color);
+  background: rgba(52, 152, 219, 0.1);
+}
+
+.like-btn.liked {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.like-count,
+.comment-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .artworks-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.25rem;
   }
-  
+
   .artwork-image-container {
     height: 280px;
   }
@@ -282,11 +328,11 @@
     gap: 1rem;
     padding: 0 0.5rem;
   }
-  
+
   .artwork-image-container {
     height: 220px;
   }
-  
+
   .gallery-grid-section {
     padding: 1.5rem 0;
   }
@@ -294,47 +340,78 @@
   .container {
     padding: 0 0.5rem;
   }
-  
+
   .artwork-info {
     padding: 1rem;
   }
-  
+
   .artwork-title {
     font-size: 1rem;
   }
-  
+
   .artwork-medium,
   .artwork-year,
   .artwork-dimensions {
     font-size: 0.8rem;
   }
-  
+
   .artwork-price {
     font-size: 0.9rem;
   }
-  
+
   /* Show Etsy link on mobile - Always visible */
   .etsy-link-mobile {
-    display: block !important; /* Force display on mobile */
+    display: block !important;
+    /* Force display on mobile */
     margin-top: 0.5rem;
     width: fit-content;
   }
-  
+
   .etsy-link-text {
     padding: 0.6rem 0.8rem;
     font-size: 0.8rem;
   }
-  
+
   /* Hide overlay on mobile for cleaner look */
   .artwork-overlay {
-    display: none !important;
+    display: flex !important; /* Force show on mobile */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .artwork-card:hover .artwork-overlay,
+  .artwork-card:active .artwork-overlay {
+    opacity: 1;
+  }
+
+    /* Make overlay content touch-friendly */
+  .overlay-content {
+    flex-direction: column;
+    gap: 0.75rem;
   }
   
+  .view-button,
+  .buy-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+  }
+
   .featured-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
     top: 0.5rem;
     right: 0.5rem;
+  }
+
+  .artwork-interaction {
+    gap: 0.75rem;
+  }
+
+  .like-btn,
+  .comment-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -344,41 +421,41 @@
     gap: 0.75rem;
     padding: 0 0.25rem;
   }
-  
+
   .artwork-image-container {
     height: 200px;
   }
-  
+
   .gallery-grid-section {
     padding: 1rem 0;
   }
-  
+
   .container {
     padding: 0 0.25rem;
   }
-  
+
   .artwork-info {
     padding: 0.75rem;
   }
-  
+
   .artwork-title {
     font-size: 0.9rem;
   }
-  
+
   .artwork-medium,
   .artwork-year {
     font-size: 0.75rem;
   }
-  
+
   .artwork-dimensions {
     font-size: 0.7rem;
   }
-  
+
   .featured-badge {
     font-size: 0.65rem;
     padding: 0.15rem 0.5rem;
   }
-  
+
   .etsy-link-text {
     padding: 0.5rem 0.6rem;
     font-size: 0.75rem;
@@ -391,11 +468,11 @@
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
-  
+
   .artwork-image-container {
     height: 250px;
   }
-  
+
   .artwork-title {
     font-size: 1rem;
   }

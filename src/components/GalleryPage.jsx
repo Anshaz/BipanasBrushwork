@@ -1,26 +1,84 @@
-// src/components/GalleryPage.jsx
+// src/components/GalleryPage.jsx (updated)
 import React, { useState, useEffect } from 'react';
 import artworks from '../data/artworks';
 import Navbar from './Navbar';
 import ImageZoomModal from './ImageZoomModal';
+import { useAuth } from '../contexts/AuthContext';
+import { 
+  getLikeCount, 
+  checkUserLike, 
+  likeArtwork,
+  getComments 
+} from '../services/artworkInteraction';
 import './GalleryPage.css';
 
 const GalleryPage = () => {
   const [allArtworks, setAllArtworks] = useState([]);
   const [selectedArtwork, setSelectedArtwork] = useState(null);
+  const [artworkStats, setArtworkStats] = useState({});
+  const { currentUser } = useAuth();
 
   // Load artworks from local data
   useEffect(() => {
     setAllArtworks(artworks);
+    loadArtworkStats();
   }, []);
 
-  // Handle Etsy button click - open in new tab
+  const loadArtworkStats = async () => {
+    const stats = {};
+    for (const artwork of artworks) {
+      const likeCount = await getLikeCount(artwork.id);
+      let userLiked = false;
+      
+      if (currentUser) {
+        userLiked = await checkUserLike(artwork.id, currentUser.uid);
+      }
+      
+      const commentCount = 0; // You can add this if you want to show count on cards
+      
+      stats[artwork.id] = { likeCount, userLiked, commentCount };
+    }
+    setArtworkStats(stats);
+  };
+
+  const handleLike = async (e, artworkId) => {
+    e.stopPropagation();
+    
+    if (!currentUser) {
+      // Show auth modal or message
+      alert('Please sign in to like artworks');
+      return;
+    }
+    
+    try {
+      const result = await likeArtwork(artworkId, currentUser.uid);
+      const newStats = { ...artworkStats };
+      
+      if (result.liked) {
+        newStats[artworkId] = {
+          ...newStats[artworkId],
+          likeCount: newStats[artworkId].likeCount + 1,
+          userLiked: true
+        };
+      } else {
+        newStats[artworkId] = {
+          ...newStats[artworkId],
+          likeCount: newStats[artworkId].likeCount - 1,
+          userLiked: false
+        };
+      }
+      
+      setArtworkStats(newStats);
+    } catch (error) {
+      console.error('Error liking artwork:', error);
+    }
+  };
+
   const handleEtsyClick = (e, etsyLink) => {
-    e.stopPropagation(); // Prevent triggering the parent click
+    e.stopPropagation();
     window.open(etsyLink, '_blank', 'noopener,noreferrer');
   };
 
-  // Handle card click - only open modal
   const handleCardClick = (artwork) => {
     setSelectedArtwork(artwork);
   };
@@ -79,6 +137,29 @@ const GalleryPage = () => {
                       {artwork.price && (
                         <p className="artwork-price">${artwork.price}</p>
                       )}
+                      
+                      {/* Like and Comment Count */}
+                      <div className="artwork-interaction">
+                        <button 
+                          className={`like-btn ${artworkStats[artwork.id]?.userLiked ? 'liked' : ''}`}
+                          onClick={(e) => handleLike(e, artwork.id)}
+                          title={currentUser ? 'Like this artwork' : 'Sign in to like'}
+                        >
+                          ❤️ <span className="like-count">{artworkStats[artwork.id]?.likeCount || 0}</span>
+                        </button>
+                        
+                        <button 
+                          className="comment-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCardClick(artwork);
+                          }}
+                          title="View comments"
+                        >
+                          💬 <span className="comment-count">0</span>
+                        </button>
+                      </div>
+                      
                       {artwork.onEtsy && artwork.etsyLink && (
                         <div className="etsy-link-mobile">
                           <a 

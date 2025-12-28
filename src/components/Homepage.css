@@ -441,7 +441,7 @@ body {
 
   .nav-menu {
     position: fixed;
-    top: 80px;
+    top: 70px;
     left: 0;
     width: 100%;
     background: var(--white);
