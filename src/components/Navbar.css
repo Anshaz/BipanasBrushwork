@@ -162,3 +162,25 @@
     padding: 1.5rem;
   }
 }
+.user-section {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .user-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .user-avatar-btn {
+    justify-content: flex-start;
+  }
+  
+  .user-name {
+    max-width: none;
+  }
+}
