@@ -374,9 +374,7 @@
 
   /* Hide overlay on mobile for cleaner look */
   .artwork-overlay {
-    display: flex !important; /* Force show on mobile */
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    display: none !important; /* Force hide on mobile */
   }
 
   .artwork-card:hover .artwork-overlay,
