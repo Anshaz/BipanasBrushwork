@@ -15,9 +15,9 @@
 
 .modal-content {
   background: white;
-  border-radius: 0;
-  width: 100vw;
-  height: 100vh;
+  border-radius: 16px;
+  width: 95vw;
+  height: 90vh;
   max-width: none;
   max-height: none;
   display: flex;
@@ -451,7 +451,7 @@
   
   .modal-content {
     border-radius: 16px;
-    width: 90vw;
+    width: 85vw;
     height: 90vh;
     max-width: 1400px;
   }
@@ -522,6 +522,8 @@
   .modal-content {
     width: 85vw;
     height: 85vh;
+    border-radius: 16px;
+    max-width: 1600px;
   }
   
   .comments-tab {
