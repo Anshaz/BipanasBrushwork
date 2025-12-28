@@ -1,5 +1,5 @@
 // src/App.js (update)
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext'; // NEW
 import './index.css';
@@ -8,8 +8,29 @@ import GalleryPage from './components/GalleryPage';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import NotFound from './components/NotFound';
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "./firebase/config";
 
 function App() {
+    useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+
+      if (!snap.exists()) {
+        await setDoc(ref, {
+          uid: user.uid,
+          email: user.email,
+          createdAt: serverTimestamp()
+        });
+      }
+    });
+
+    return () => unsubscribe(); // cleanup
+  }, []);
   return (
     <Router>
       <AuthProvider> {/* NEW: Wrap with AuthProvider */}
