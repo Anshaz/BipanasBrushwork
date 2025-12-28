@@ -19,7 +19,6 @@ function App() {
 
       const ref = doc(db, "users", user.uid);
       const snap = await getDoc(ref);
-
       if (!snap.exists()) {
         await setDoc(ref, {
           uid: user.uid,

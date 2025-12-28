@@ -1,4 +1,4 @@
-// src/components/ImageZoomModal.jsx
+// src/components/ImageZoomModal.jsx - Fixed version
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import {
@@ -9,7 +9,10 @@ import {
   checkUserLike,
   likeArtwork
 } from '../services/artworkInteraction';
+import Dialog from './Dialog';
 import './ImageZoomModal.css';
+import useDialog from '../hooks/useDialog';
+import AuthModal from './AuthModal';
 
 const ImageZoomModal = ({
   artwork,
@@ -17,7 +20,9 @@ const ImageZoomModal = ({
   onNext,
   onPrev,
   hasNext,
-  hasPrev
+  hasPrev,
+  onCommentAdded,
+  onCommentDeleted
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -29,8 +34,14 @@ const ImageZoomModal = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [userLiked, setUserLiked] = useState(false);
-  const [activeTab, setActiveTab] = useState('image'); // 'image' or 'comments'
+  const [activeTab, setActiveTab] = useState('image');
   const { currentUser } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // Use the dialog hook
+  const loginDialog = useDialog();
+  const commentDialog = useDialog();
+  const errorDialog = useDialog();
 
   useEffect(() => {
     // Reset when artwork changes
@@ -60,7 +71,18 @@ const ImageZoomModal = ({
 
   const handleLike = async () => {
     if (!currentUser) {
-      alert('Please sign in to like artworks');
+      loginDialog.showDialog({
+        title: 'Sign In Required',
+        message: 'Please sign in to like this artwork.',
+        type: 'login',
+        confirmText: 'Sign In Now',
+        onConfirm: () => {
+          loginDialog.hideDialog(); // Close dialog first
+          setShowAuthModal(true); // Open AuthModal
+        },
+        cancelText: 'Maybe Later',
+        showCancel: true
+      });
       return;
     }
 
@@ -75,6 +97,11 @@ const ImageZoomModal = ({
       }
     } catch (error) {
       console.error('Error liking artwork:', error);
+      errorDialog.showDialog({
+        title: 'Error',
+        message: 'Failed to like artwork. Please try again.',
+        type: 'error'
+      });
     }
   };
 
@@ -82,12 +109,27 @@ const ImageZoomModal = ({
     e.preventDefault();
 
     if (!currentUser) {
-      alert('Please sign in to comment');
+      loginDialog.showDialog({
+        title: 'Sign In Required',
+        message: 'Please sign in to comment on this artwork.',
+        type: 'login',
+        confirmText: 'Sign In Now',
+        onConfirm: () => {
+          loginDialog.hideDialog(); // Close dialog first
+          setShowAuthModal(true); // Open AuthModal
+        },
+        cancelText: 'Maybe Later',
+        showCancel: true
+      });
       return;
     }
 
     if (!newComment.trim()) {
-      alert('Please enter a comment');
+      commentDialog.showDialog({
+        title: 'Empty Comment',
+        message: 'Please enter a comment before posting.',
+        type: 'warning'
+      });
       return;
     }
 
@@ -102,9 +144,18 @@ const ImageZoomModal = ({
 
       setComments(prev => [comment, ...prev]);
       setNewComment('');
+
+      // Notify parent component to update comment count
+      if (onCommentAdded) {
+        onCommentAdded();
+      }
     } catch (error) {
       console.error('Error adding comment:', error);
-      alert('Failed to add comment');
+      errorDialog.showDialog({
+        title: 'Failed to Add Comment',
+        message: 'Please try again later.',
+        type: 'error'
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -113,16 +164,37 @@ const ImageZoomModal = ({
   const handleDeleteComment = async (commentId) => {
     if (!currentUser) return;
 
-    if (!window.confirm('Are you sure you want to delete this comment?')) {
-      return;
-    }
+    // Use custom confirmation dialog instead of window.confirm
+    const deleteConfirmed = await new Promise((resolve) => {
+      loginDialog.showDialog({
+        title: 'Delete Comment',
+        message: 'Are you sure you want to delete this comment?',
+        type: 'warning',
+        confirmText: 'Delete',
+        onConfirm: () => resolve(true),
+        cancelText: 'Cancel',
+        onCancel: () => resolve(false),
+        showCancel: true
+      });
+    });
+
+    if (!deleteConfirmed) return;
 
     try {
       await deleteComment(commentId, currentUser.uid);
       setComments(prev => prev.filter(comment => comment.id !== commentId));
+
+      // Notify parent component to update comment count
+      if (onCommentDeleted) {
+        onCommentDeleted();
+      }
     } catch (error) {
       console.error('Error deleting comment:', error);
-      alert(error.message || 'Failed to delete comment');
+      errorDialog.showDialog({
+        title: 'Failed to Delete',
+        message: error.message || 'Could not delete comment. Please try again.',
+        type: 'error'
+      });
     }
   };
 
@@ -209,215 +281,281 @@ const ImageZoomModal = ({
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
-        <div className="modal-header">
-          <div className="modal-header-left">
-            <button
-              className={`modal-tab ${activeTab === 'image' ? 'active' : ''}`}
-              onClick={() => setActiveTab('image')}
-            >
-              Artwork
-            </button>
-            <button
-              className={`modal-tab ${activeTab === 'comments' ? 'active' : ''}`}
-              onClick={() => setActiveTab('comments')}
-            >
-              Comments ({comments.length})
-            </button>
-            <button
-              className={`like-btn-header ${userLiked ? 'liked' : ''}`}
-              onClick={handleLike}
-              title={currentUser ? 'Like this artwork' : 'Sign in to like'}
-            >
-              ❤️ {likeCount}
-            </button>
+    <>
+      {/* Dialogs - Render at root level with higher z-index */}
+      <Dialog
+        isOpen={loginDialog.isOpen}
+        onClose={loginDialog.hideDialog}
+        title={loginDialog.config.title}
+        message={loginDialog.config.message}
+        type={loginDialog.config.type}
+        confirmText={loginDialog.config.confirmText || 'OK'}
+        onConfirm={loginDialog.handleConfirm}
+        cancelText={loginDialog.config.cancelText}
+        onCancel={loginDialog.handleCancel}
+        showCancel={loginDialog.config.showCancel}
+      />
+
+      <Dialog
+        isOpen={commentDialog.isOpen}
+        onClose={commentDialog.hideDialog}
+        title={commentDialog.config.title}
+        message={commentDialog.config.message}
+        type={commentDialog.config.type}
+        confirmText={commentDialog.config.confirmText || 'OK'}
+        onConfirm={commentDialog.handleConfirm}
+        cancelText={commentDialog.config.cancelText}
+        onCancel={commentDialog.handleCancel}
+        showCancel={commentDialog.config.showCancel}
+      />
+
+      <Dialog
+        isOpen={errorDialog.isOpen}
+        onClose={errorDialog.hideDialog}
+        title={errorDialog.config.title}
+        message={errorDialog.config.message}
+        type={errorDialog.config.type}
+        confirmText={errorDialog.config.confirmText || 'OK'}
+        onConfirm={errorDialog.handleConfirm}
+        cancelText={errorDialog.config.cancelText}
+        onCancel={errorDialog.handleCancel}
+        showCancel={errorDialog.config.showCancel}
+      />
+
+      {/* AuthModal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
+
+      {/* ImageZoomModal - Render this last so dialogs appear above */}
+      <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          {/* Header */}
+          <div className="modal-header">
+            <div className="modal-header-left">
+              <button
+                className={`modal-tab ${activeTab === 'image' ? 'active' : ''}`}
+                onClick={() => setActiveTab('image')}
+              >
+                Artwork
+              </button>
+              <button
+                className={`modal-tab ${activeTab === 'comments' ? 'active' : ''}`}
+                onClick={() => setActiveTab('comments')}
+              >
+                Comments ({comments.length})
+              </button>
+              <button
+                className={`like-btn-header ${userLiked ? 'liked' : ''}`}
+                onClick={handleLike}
+                title={currentUser ? 'Like this artwork' : 'Sign in to like'}
+              >
+                ❤️ {likeCount}
+              </button>
+            </div>
+
+            <div className="modal-header-right">
+              <button onClick={onClose} className="close-btn">
+                ×
+              </button>
+            </div>
           </div>
 
-          <div className="modal-header-right">
-            <button onClick={onClose} className="close-btn">
-              ×
-            </button>
-          </div>
-        </div>
+          {/* Content Area */}
+          <div className="modal-body">
+            {/* Image Tab */}
+            {activeTab === 'image' && (
+              <div className="image-tab">
+                <div className="image-container">
+                  {!imageLoaded && (
+                    <div className="image-loading">
+                      <div className="loading-spinner"></div>
+                      <p>Loading image...</p>
+                    </div>
+                  )}
 
-        {/* Content Area */}
-        <div className="modal-body">
-          {/* Image Tab */}
-          {activeTab === 'image' && (
-            <div className="image-tab">
-              <div className="image-container">
-                {!imageLoaded && (
-                  <div className="image-loading">
-                    <div className="loading-spinner"></div>
-                    <p>Loading image...</p>
+                  <div
+                    className="image-wrapper"
+                    onWheel={handleWheel}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                    style={{ cursor: zoomLevel > 1 ? 'grab' : 'default' }}
+                  >
+                    <img
+                      src={artwork.image}
+                      alt={artwork.title}
+                      className={`zoom-image ${imageLoaded ? 'loaded' : ''}`}
+                      style={{
+                        transform: `scale(${zoomLevel}) translate(${position.x}px, ${position.y}px)`,
+                        cursor: zoomLevel > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in'
+                      }}
+                      onLoad={() => setImageLoaded(true)}
+                    />
                   </div>
-                )}
 
-                <div
-                  className="image-wrapper"
-                  onWheel={handleWheel}
-                  onMouseDown={handleMouseDown}
-                  onMouseMove={handleMouseMove}
-                  onMouseUp={handleMouseUp}
-                  onMouseLeave={handleMouseUp}
-                  style={{ cursor: zoomLevel > 1 ? 'grab' : 'default' }}
-                >
-                  <img
-                    src={artwork.image}
-                    alt={artwork.title}
-                    className={`zoom-image ${imageLoaded ? 'loaded' : ''}`}
-                    style={{
-                      transform: `scale(${zoomLevel}) translate(${position.x}px, ${position.y}px)`,
-                      cursor: zoomLevel > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in'
-                    }}
-                    onLoad={() => setImageLoaded(true)}
-                  />
+                  {/* Navigation Arrows */}
+                  {hasPrev && (
+                    <button
+                      onClick={onPrev}
+                      className="nav-arrow nav-arrow-prev"
+                      aria-label="Previous artwork"
+                    >
+                      ‹
+                    </button>
+                  )}
+                  {hasNext && (
+                    <button
+                      onClick={onNext}
+                      className="nav-arrow nav-arrow-next"
+                      aria-label="Next artwork"
+                    >
+                      ›
+                    </button>
+                  )}
                 </div>
 
-                {/* Navigation Arrows */}
-                {hasPrev && (
-                  <button
-                    onClick={onPrev}
-                    className="nav-arrow nav-arrow-prev"
-                    aria-label="Previous artwork"
-                  >
-                    ‹
-                  </button>
-                )}
-                {hasNext && (
-                  <button
-                    onClick={onNext}
-                    className="nav-arrow nav-arrow-next"
-                    aria-label="Next artwork"
-                  >
-                    ›
-                  </button>
-                )}
-              </div>
+                {/* Artwork Info below image on mobile */}
+                <div className="artwork-info-mobile">
+                  <h3 className="artwork-title">{artwork.title}</h3>
+                  <p className="artwork-medium">{artwork.medium} • {artwork.year}</p>
+                  {artwork.dimensions && (
+                    <p className="artwork-dimensions">{artwork.dimensions}</p>
+                  )}
+                  {artwork.price && (
+                    <p className="artwork-price">${artwork.price}</p>
+                  )}
 
-              {/* Artwork Info below image on mobile */}
-              <div className="artwork-info-mobile">
-                <h3 className="artwork-title">{artwork.title}</h3>
-                <p className="artwork-medium">{artwork.medium} • {artwork.year}</p>
-                {artwork.dimensions && (
-                  <p className="artwork-dimensions">{artwork.dimensions}</p>
-                )}
-                {artwork.price && (
-                  <p className="artwork-price">${artwork.price}</p>
-                )}
-
-                {artwork.onEtsy && artwork.etsyLink ? (
-                  <div className="etsy-link-modal-mobile">
-                    <a
-                      href={artwork.etsyLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="etsy-link-text"
-                    >
-                      Buy on Etsy
-                    </a>
-                  </div>
-                ) : (
-                  <p className="not-on-etsy-text">
-                    Available on request. <a href="/contact" className="contact-link">Contact me</a>
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Comments Tab */}
-          {activeTab === 'comments' && (
-            <div className="comments-tab">
-              <div className="comments-header">
-                <h3>Comments ({comments.length})</h3>
-              </div>
-
-              {/* Add Comment Form */}
-              <div className="add-comment-section">
-                {currentUser ? (
-                  <form className="add-comment-form" onSubmit={handleSubmitComment}>
-                    <textarea
-                      placeholder="Add a comment..."
-                      value={newComment}
-                      onChange={(e) => setNewComment(e.target.value)}
-                      rows="3"
-                      disabled={isSubmitting}
-                      className="comment-textarea"
-                    />
-                    <div className="comment-form-actions">
-                      <button
-                        type="button"
-                        className="btn btn-outline"
-                        onClick={() => setNewComment('')}
-                        disabled={isSubmitting || !newComment.trim()}
+                  {artwork.onEtsy && artwork.etsyLink ? (
+                    <div className="etsy-link-modal-mobile">
+                      <a
+                        href={artwork.etsyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="etsy-link-text"
                       >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className="btn btn-primary"
-                        disabled={isSubmitting || !newComment.trim()}
-                      >
-                        {isSubmitting ? 'Posting...' : 'Post Comment'}
-                      </button>
+                        Buy on Etsy
+                      </a>
                     </div>
-                  </form>
-                ) : (
-                  <div className="login-prompt">
-                    <p>
-                      <button
-                        className="link-btn"
-                        onClick={() => {
-                          // You might want to trigger auth modal here
-                          alert('Please sign in to comment');
-                        }}
-                      >
-                        Sign in
-                      </button> to add a comment
+                  ) : (
+                    <p className="not-on-etsy-text">
+                      Available on request. <a href="/contact" className="contact-link">Contact me</a>
                     </p>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
+            )}
 
-              {/* Comments List */}
-              <div className="comments-list">
-                {comments.length === 0 ? (
-                  <div className="no-comments">
-                    <p>No comments yet. Be the first to comment!</p>
-                  </div>
-                ) : (
-                  comments.map(comment => (
-                    <div key={comment.id} className="comment-item">
-                      <div className="comment-header">
-                        <div className="comment-author-info">
-                          <span className="comment-author">{comment.userName}</span>
-                          <span className="comment-date">
-                            {formatDate(comment.createdAt)}
-                          </span>
-                        </div>
-                        {currentUser?.uid === comment.userId && (
-                          <button
-                            className="delete-comment-btn"
-                            onClick={() => handleDeleteComment(comment.id)}
-                            title="Delete comment"
-                          >
-                            🗑️
-                          </button>
-                        )}
+            {/* Comments Tab */}
+            {activeTab === 'comments' && (
+              <div className="comments-tab">
+                <div className="comments-header">
+                  <h3>Comments ({comments.length})</h3>
+                </div>
+
+                {/* Add Comment Form */}
+                <div className="add-comment-section">
+                  {currentUser ? (
+                    <form className="add-comment-form" onSubmit={handleSubmitComment}>
+                      <textarea
+                        placeholder="Share your thoughts about this artwork..."
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        rows="3"
+                        disabled={isSubmitting}
+                        className="comment-textarea"
+                      />
+                      <div className="comment-form-actions">
+                        <button
+                          type="button"
+                          className="btn btn-outline"
+                          onClick={() => setNewComment('')}
+                          disabled={isSubmitting || !newComment.trim()}
+                        >
+                          Clear
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn btn-primary"
+                          disabled={isSubmitting || !newComment.trim()}
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <span className="spinner"></span>
+                              Posting...
+                            </>
+                          ) : (
+                            'Post Comment'
+                          )}
+                        </button>
                       </div>
-                      <p className="comment-content">{comment.content}</p>
+                    </form>
+                  ) : (
+                    <div className="login-prompt">
+                      <p>
+                        <button
+                          className="link-btn"
+                          onClick={() => {
+                            loginDialog.showDialog({
+                              title: 'Sign In Required',
+                              message: 'Please sign in to comment on this artwork.',
+                              type: 'login',
+                              confirmText: 'Sign In Now',
+                              onConfirm: () => {
+                                loginDialog.hideDialog(); // Close dialog first
+                                setShowAuthModal(true); // Open AuthModal
+                              },
+                              cancelText: 'Maybe Later',
+                              showCancel: true
+                            });
+                          }}
+                        >
+                          Sign in
+                        </button> to add a comment
+                      </p>
                     </div>
-                  ))
-                )}
+                  )}
+                </div>
+
+                {/* Comments List */}
+                <div className="comments-list">
+                  {comments.length === 0 ? (
+                    <div className="no-comments">
+                      <p>No comments yet. Be the first to comment!</p>
+                    </div>
+                  ) : (
+                    comments.map(comment => (
+                      <div key={comment.id} className="comment-item">
+                        <div className="comment-header">
+                          <div className="comment-author-info">
+                            <span className="comment-author">{comment.userName}</span>
+                            <span className="comment-date">
+                              {formatDate(comment.createdAt)}
+                            </span>
+                          </div>
+                          {currentUser?.uid === comment.userId && (
+                            <button
+                              className="delete-comment-btn"
+                              onClick={() => handleDeleteComment(comment.id)}
+                              title="Delete comment"
+                            >
+                              🗑️
+                            </button>
+                          )}
+                        </div>
+                        <p className="comment-content">{comment.content}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

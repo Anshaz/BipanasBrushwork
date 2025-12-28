@@ -1,4 +1,4 @@
-// src/components/GalleryPage.jsx (updated)
+// src/components/GalleryPage.jsx
 import React, { useState, useEffect } from 'react';
 import artworks from '../data/artworks';
 import Navbar from './Navbar';
@@ -8,36 +8,89 @@ import {
   getLikeCount, 
   checkUserLike, 
   likeArtwork,
-  getComments 
+  getComments
 } from '../services/artworkInteraction';
 import './GalleryPage.css';
+import Dialog from './Dialog';
+import AuthModal from './AuthModal';
+import useDialog from '../hooks/useDialog';
 
 const GalleryPage = () => {
   const [allArtworks, setAllArtworks] = useState([]);
   const [selectedArtwork, setSelectedArtwork] = useState(null);
   const [artworkStats, setArtworkStats] = useState({});
-  const { currentUser } = useAuth();
+  const { currentUser, loginWithGoogle } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // Use dialog hook
+  const loginDialog = useDialog();
+  const errorDialog = useDialog();
 
   // Load artworks from local data
   useEffect(() => {
     setAllArtworks(artworks);
     loadArtworkStats();
-  }, []);
+  }, [currentUser]); // Re-load when user auth changes
 
   const loadArtworkStats = async () => {
-    const stats = {};
-    for (const artwork of artworks) {
-      const likeCount = await getLikeCount(artwork.id);
-      let userLiked = false;
+    const stats = {};    
+
+    
+    // Process artworks in batches to avoid too many simultaneous requests
+    const batchSize = 5;
+    
+    for (let i = 0; i < artworks.length; i += batchSize) {
+      const batch = artworks.slice(i, i + batchSize);
       
-      if (currentUser) {
-        userLiked = await checkUserLike(artwork.id, currentUser.uid);
-      }
+      const batchPromises = batch.map(async (artwork) => {
+        try {
+          // Get like count and comment count in parallel
+          const [likeCount, comments] = await Promise.all([
+            getLikeCount(artwork.id),
+            getComments(artwork.id)
+          ]);
+          
+          const commentCount = comments.length;
+          
+          // Check if current user liked it
+          let userLiked = false;
+          if (currentUser) {
+            userLiked = await checkUserLike(artwork.id, currentUser.uid);
+          }
+          
+
+          
+          return {
+            id: artwork.id,
+            stats: { 
+              likeCount, 
+              userLiked, 
+              commentCount 
+            }
+          };
+        } catch (error) {
+          console.error(`Error loading stats for ${artwork.id}:`, error);
+          return {
+            id: artwork.id,
+            stats: { 
+              likeCount: 0, 
+              userLiked: false, 
+              commentCount: 0 
+            }
+          };
+        }
+      });
       
-      const commentCount = 0; // You can add this if you want to show count on cards
+      // Wait for batch to complete
+      const batchResults = await Promise.all(batchPromises);
       
-      stats[artwork.id] = { likeCount, userLiked, commentCount };
+      // Update stats
+      batchResults.forEach(({ id, stats: artworkStats }) => {
+        stats[id] = artworkStats;
+      });
     }
+    
+
     setArtworkStats(stats);
   };
 
@@ -45,8 +98,18 @@ const GalleryPage = () => {
     e.stopPropagation();
     
     if (!currentUser) {
-      // Show auth modal or message
-      alert('Please sign in to like artworks');
+      loginDialog.showDialog({
+        title: 'Sign In Required',
+        message: 'Please sign in to like artworks and interact with the community.',
+        type: 'login',
+        confirmText: 'Sign In Now',
+        onConfirm: () => {
+          loginDialog.hideDialog();
+          setShowAuthModal(true); // Open AuthModal instead of Google login
+        },
+        cancelText: 'Continue Browsing',
+        showCancel: true
+      });
       return;
     }
     
@@ -71,7 +134,23 @@ const GalleryPage = () => {
       setArtworkStats(newStats);
     } catch (error) {
       console.error('Error liking artwork:', error);
+      errorDialog.showDialog({
+        title: 'Error',
+        message: 'Failed to like artwork. Please try again.',
+        type: 'error'
+      });
     }
+  };
+
+  // Add this function to update comment count when a new comment is added
+  const updateCommentCount = (artworkId, change) => {
+    setArtworkStats(prev => ({
+      ...prev,
+      [artworkId]: {
+        ...prev[artworkId],
+        commentCount: (prev[artworkId]?.commentCount || 0) + change
+      }
+    }));
   };
 
   const handleEtsyClick = (e, etsyLink) => {
@@ -83,9 +162,20 @@ const GalleryPage = () => {
     setSelectedArtwork(artwork);
   };
 
+  // Refresh stats when modal closes (to get updated comment counts)
+  const handleModalClose = () => {
+    setSelectedArtwork(null);
+    loadArtworkStats(); // Refresh stats to get updated comment counts
+  };
+
   return (
     <div className="gallery-page">
       <Navbar />
+            {/* Add AuthModal */}
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+      />
       <div style={{ paddingTop: '30px' }}>
         <section className="gallery-grid-section">
           <div className="container">
@@ -156,7 +246,9 @@ const GalleryPage = () => {
                           }}
                           title="View comments"
                         >
-                          💬 <span className="comment-count">0</span>
+                          💬 <span className="comment-count">
+                            {artworkStats[artwork.id]?.commentCount || 0}
+                          </span>
                         </button>
                       </div>
                       
@@ -184,7 +276,7 @@ const GalleryPage = () => {
         {selectedArtwork && (
           <ImageZoomModal 
             artwork={selectedArtwork}
-            onClose={() => setSelectedArtwork(null)}
+            onClose={handleModalClose}
             onNext={() => {
               const currentIndex = allArtworks.findIndex(
                 art => art.id === selectedArtwork.id
@@ -202,9 +294,39 @@ const GalleryPage = () => {
             }}
             hasNext={allArtworks.length > 1}
             hasPrev={allArtworks.length > 1}
+            // Pass the update function to the modal
+            onCommentAdded={() => updateCommentCount(selectedArtwork.id, 1)}
+            onCommentDeleted={() => updateCommentCount(selectedArtwork.id, -1)}
           />
         )}
       </div>
+
+      {/* Dialogs */}
+      <Dialog
+        isOpen={loginDialog.isOpen}
+        onClose={loginDialog.hideDialog}
+        title={loginDialog.config.title}
+        message={loginDialog.config.message}
+        type={loginDialog.config.type}
+        confirmText={loginDialog.config.confirmText || 'OK'}
+        onConfirm={loginDialog.handleConfirm}
+        cancelText={loginDialog.config.cancelText}
+        onCancel={loginDialog.handleCancel}
+        showCancel={loginDialog.config.showCancel}
+      />
+
+      <Dialog
+        isOpen={errorDialog.isOpen}
+        onClose={errorDialog.hideDialog}
+        title={errorDialog.config.title}
+        message={errorDialog.config.message}
+        type={errorDialog.config.type}
+        confirmText={errorDialog.config.confirmText || 'OK'}
+        onConfirm={errorDialog.handleConfirm}
+        cancelText={errorDialog.config.cancelText}
+        onCancel={errorDialog.handleCancel}
+        showCancel={errorDialog.config.showCancel}
+      />
     </div>
   );
 };

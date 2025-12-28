@@ -1,3 +1,4 @@
+// src/services/artworkInteraction.js - UPDATED
 import { 
   collection, 
   doc, 
@@ -8,8 +9,7 @@ import {
   where, 
   orderBy,
   getDoc,
-  updateDoc,
-  increment 
+  setDoc 
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
@@ -61,7 +61,7 @@ export const getComments = async (artworkId) => {
   }
 };
 
-// Delete a comment (only by owner or admin)
+// Delete a comment
 export const deleteComment = async (commentId, userId) => {
   try {
     const commentRef = doc(db, 'comments', commentId);
@@ -87,29 +87,22 @@ export const deleteComment = async (commentId, userId) => {
 // Like an artwork
 export const likeArtwork = async (artworkId, userId) => {
   try {
-    // Check if already liked
-    const q = query(
-      likesCollection,
-      where('artworkId', '==', artworkId),
-      where('userId', '==', userId)
-    );
-    
-    const querySnapshot = await getDocs(q);
-    
-    if (!querySnapshot.empty) {
+    // Create a unique ID for the like (artworkId_userId)
+    const likeId = `${artworkId}_${userId}`;
+    const likeRef = doc(db, 'likes', likeId);
+    const snap = await getDoc(likeRef);
+
+    if (snap.exists()) {
       // Unlike - remove the like
-      const likeDoc = querySnapshot.docs[0];
-      await deleteDoc(doc(db, 'likes', likeDoc.id));
+      await deleteDoc(likeRef);
       return { liked: false };
     } else {
       // Like - add the like
-      const like = {
+      await setDoc(likeRef, {
         artworkId,
         userId,
         createdAt: new Date().toISOString()
-      };
-      
-      await addDoc(likesCollection, like);
+      });
       return { liked: true };
     }
   } catch (error) {
@@ -121,14 +114,10 @@ export const likeArtwork = async (artworkId, userId) => {
 // Check if user liked an artwork
 export const checkUserLike = async (artworkId, userId) => {
   try {
-    const q = query(
-      likesCollection,
-      where('artworkId', '==', artworkId),
-      where('userId', '==', userId)
-    );
-    
-    const querySnapshot = await getDocs(q);
-    return !querySnapshot.empty;
+    const likeId = `${artworkId}_${userId}`;
+    const likeRef = doc(db, 'likes', likeId);
+    const snap = await getDoc(likeRef);
+    return snap.exists();
   } catch (error) {
     console.error('Error checking like:', error);
     return false;
@@ -148,5 +137,19 @@ export const getLikeCount = async (artworkId) => {
   } catch (error) {
     console.error('Error getting like count:', error);
     return 0;
+  }
+};
+
+// Get all likes (for debugging)
+export const getAllLikes = async () => {
+  try {
+    const querySnapshot = await getDocs(likesCollection);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error('Error getting all likes:', error);
+    return [];
   }
 };

@@ -36,7 +36,7 @@ const Homepage = () => {
             <p className="hero-subtitle">
               Explore original artworks shaped by the spirit of Nepal and the Himalayas, telling stories through rich color, texture, and emotion.            </p>
             <div className="hero-buttons">
-              <Link to="/gallery" className="btn btn-primary">View Gallery</Link>
+              <Link to="/gallery" className="dialog-btn dialog-btn-confirm dialog-btn-login">View Gallery</Link>
               {/* <button className="btn btn-secondary">Commission Work</button> */}
             </div>
           </div>
