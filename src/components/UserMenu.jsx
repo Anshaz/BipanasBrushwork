@@ -77,8 +77,6 @@ const UserMenu = ({ user, onLogout, onCloseMenu }) => {
                         </div>
                     </div>
 
-                    <div className="dropdown-divider"></div>
-
                     <Link
                         to="/profile"
                         className="dropdown-item"
@@ -90,7 +88,7 @@ const UserMenu = ({ user, onLogout, onCloseMenu }) => {
                         👤 My Profile
                     </Link>
 
-                    <Link
+                    {/* <Link
                         to="/collections"
                         className="dropdown-item"
                         onClick={() => {
@@ -121,7 +119,7 @@ const UserMenu = ({ user, onLogout, onCloseMenu }) => {
                         }}
                     >
                         💬 My Comments
-                    </Link>
+                    </Link> */}
 
                     <div className="dropdown-divider"></div>
 

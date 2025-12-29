@@ -11,6 +11,7 @@ import NotFound from './components/NotFound';
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
+import ProfilePage from './components/ProfilePage';
 
 function App() {
     useEffect(() => {
@@ -41,6 +42,7 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </main>
         </div>

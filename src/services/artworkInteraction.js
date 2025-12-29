@@ -153,3 +153,46 @@ export const getAllLikes = async () => {
     return [];
   }
 };
+
+// Get all likes by a specific user
+export const getLikesByUser = async (userId) => {
+  try {
+    const q = query(
+      likesCollection,
+      where('userId', '==', userId)
+    );
+    
+    const querySnapshot = await getDocs(q);
+    const likes = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    
+    return likes;
+  } catch (error) {
+    console.error('Error getting user likes:', error);
+    return [];
+  }
+};
+
+// Get all comments by a specific user
+export const getCommentsByUser = async (userId) => {
+  try {
+    const q = query(
+      commentsCollection,
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc')
+    );
+    
+    const querySnapshot = await getDocs(q);
+    const comments = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    
+    return comments;
+  } catch (error) {
+    console.error('Error getting user comments:', error);
+    return [];
+  }
+};

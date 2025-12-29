@@ -41,7 +41,8 @@ const Navbar = () => {
             <Link to="/gallery" className="nav-link" onClick={closeMenu}>Gallery</Link>
             <Link to="/about" className="nav-link" onClick={closeMenu}>About</Link>
             <Link to="/contact" className="nav-link" onClick={closeMenu}>Contact</Link>
-            
+            {/* <Link to="/profile" className="nav-link" onClick={closeMenu}>Profile</Link> */}
+
             {/* User/Auth Section */}
             <div className="user-section">
               {currentUser ? (
@@ -65,7 +66,7 @@ const Navbar = () => {
           </div>
 
           <button 
-            className="menu-toggle"
+            className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
             onClick={toggleMenu}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
