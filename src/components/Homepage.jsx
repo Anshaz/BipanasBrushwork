@@ -55,7 +55,7 @@ const Homepage = () => {
                       <img
                         src={artwork.image}
                         alt={artwork.title}
-                        className="artwork-image"
+                        className="artwork-image-carousal"
                       />
                       <div className="artwork-overlay">
                         <h3>{artwork.title}</h3>
