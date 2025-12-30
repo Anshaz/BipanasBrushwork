@@ -168,6 +168,8 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  text-align: center;
+  margin-top: 10px;
 }
 
 /* Style buttons that are actually Links */
