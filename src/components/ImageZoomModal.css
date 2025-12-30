@@ -484,7 +484,6 @@
   .comments-tab {
     flex: 1;
     min-width: 400px;
-    max-width: 500px;
     border-left: 1px solid #e1e5e9;
   }
   
