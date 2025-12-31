@@ -218,6 +218,19 @@ const artworks = [
         isFeatured: true,
         dimensions: ''
 
+    },
+        {
+        id: 'artwork-18',
+        image: '/sailing.jpg',
+        title: 'Sailing Ship Vintage',
+        medium: 'Oil on Canvas',
+        year: '2025',
+        onEtsy: true,
+        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4433602459/vintage-sailing-ship-oil-fabric-painting',
+        latestWork: false,
+        isFeatured: false,
+        dimensions: ''
+
     }
 ];
 
