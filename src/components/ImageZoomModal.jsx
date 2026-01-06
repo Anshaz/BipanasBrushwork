@@ -49,8 +49,8 @@ const ImageZoomModal = ({
     setPosition({ x: 0, y: 0 });
     setImageLoaded(false);
     setNewComment('');
-    loadComments();
-    loadLikeInfo();
+    // loadComments();
+    // loadLikeInfo();
     setActiveTab('image');
   }, [artwork]);
 
@@ -340,7 +340,7 @@ const ImageZoomModal = ({
               >
                 Artwork
               </button>
-              <button
+              {/* <button
                 className={`modal-tab ${activeTab === 'comments' ? 'active' : ''}`}
                 onClick={() => setActiveTab('comments')}
               >
@@ -352,7 +352,7 @@ const ImageZoomModal = ({
                 title={currentUser ? 'Like this artwork' : 'Sign in to like'}
               >
                 ❤️ {likeCount}
-              </button>
+              </button> */}
             </div>
 
             <div className="modal-header-right">

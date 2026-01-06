@@ -29,7 +29,7 @@ const GalleryPage = () => {
   // Load artworks from local data
   useEffect(() => {
     setAllArtworks(artworks);
-    loadArtworkStats();
+    // loadArtworkStats();
   }, [currentUser]); // Re-load when user auth changes
 
   const loadArtworkStats = async () => {
@@ -143,15 +143,15 @@ const GalleryPage = () => {
   };
 
   // Add this function to update comment count when a new comment is added
-  const updateCommentCount = (artworkId, change) => {
-    setArtworkStats(prev => ({
-      ...prev,
-      [artworkId]: {
-        ...prev[artworkId],
-        commentCount: (prev[artworkId]?.commentCount || 0) + change
-      }
-    }));
-  };
+  // const updateCommentCount = (artworkId, change) => {
+  //   setArtworkStats(prev => ({
+  //     ...prev,
+  //     [artworkId]: {
+  //       ...prev[artworkId],
+  //       commentCount: (prev[artworkId]?.commentCount || 0) + change
+  //     }
+  //   }));
+  // };
 
   const handleEtsyClick = (e, etsyLink) => {
     e.stopPropagation();
@@ -165,7 +165,7 @@ const GalleryPage = () => {
   // Refresh stats when modal closes (to get updated comment counts)
   const handleModalClose = () => {
     setSelectedArtwork(null);
-    loadArtworkStats(); // Refresh stats to get updated comment counts
+    // loadArtworkStats(); // Refresh stats to get updated comment counts
   };
 
   return (
@@ -229,7 +229,7 @@ const GalleryPage = () => {
                       )}
                       
                       {/* Like and Comment Count */}
-                      <div className="artwork-interaction">
+                      {/* <div className="artwork-interaction">
                         <button 
                           className={`like-btn ${artworkStats[artwork.id]?.userLiked ? 'liked' : ''}`}
                           onClick={(e) => handleLike(e, artwork.id)}
@@ -250,7 +250,7 @@ const GalleryPage = () => {
                             {artworkStats[artwork.id]?.commentCount || 0}
                           </span>
                         </button>
-                      </div>
+                      </div> */}
                       
                       {artwork.onEtsy && artwork.etsyLink && (
                         <div className="etsy-link-mobile">
@@ -295,8 +295,8 @@ const GalleryPage = () => {
             hasNext={allArtworks.length > 1}
             hasPrev={allArtworks.length > 1}
             // Pass the update function to the modal
-            onCommentAdded={() => updateCommentCount(selectedArtwork.id, 1)}
-            onCommentDeleted={() => updateCommentCount(selectedArtwork.id, -1)}
+            // onCommentAdded={() => updateCommentCount(selectedArtwork.id, 1)}
+            // onCommentDeleted={() => updateCommentCount(selectedArtwork.id, -1)}
           />
         )}
       </div>

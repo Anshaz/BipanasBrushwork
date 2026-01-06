@@ -14,23 +14,23 @@ import { auth, db } from "./firebase/config";
 import ProfilePage from './components/ProfilePage';
 
 function App() {
-    useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) return;
+  //   useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  //     if (!user) return;
 
-      const ref = doc(db, "users", user.uid);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        await setDoc(ref, {
-          uid: user.uid,
-          email: user.email,
-          createdAt: serverTimestamp()
-        });
-      }
-    });
+  //     const ref = doc(db, "users", user.uid);
+  //     const snap = await getDoc(ref);
+  //     if (!snap.exists()) {
+  //       await setDoc(ref, {
+  //         uid: user.uid,
+  //         email: user.email,
+  //         createdAt: serverTimestamp()
+  //       });
+  //     }
+  //   });
 
-    return () => unsubscribe(); // cleanup
-  }, []);
+  //   return () => unsubscribe(); // cleanup
+  // }, []);
   return (
     <Router>
       <AuthProvider> {/* NEW: Wrap with AuthProvider */}
@@ -42,7 +42,7 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              {/* <Route path="/profile" element={<ProfilePage />} /> */}
             </Routes>
           </main>
         </div>

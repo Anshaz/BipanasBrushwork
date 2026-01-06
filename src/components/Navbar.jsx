@@ -44,7 +44,7 @@ const Navbar = () => {
             {/* <Link to="/profile" className="nav-link" onClick={closeMenu}>Profile</Link> */}
 
             {/* User/Auth Section */}
-            <div className="user-section">
+            {/* <div className="user-section">
               {currentUser ? (
                 <UserMenu 
                   user={currentUser} 
@@ -62,7 +62,7 @@ const Navbar = () => {
                   Sign In
                 </button>
               )}
-            </div>
+            </div> */}
           </div>
 
           <button 

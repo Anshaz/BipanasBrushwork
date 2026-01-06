@@ -20,63 +20,63 @@ const ProfilePage = () => {
   const [likedArtworks, setLikedArtworks] = useState([]);
   const [commentedArtworks, setCommentedArtworks] = useState([]);
 
-  useEffect(() => {
-    if (currentUser) {
-      loadUserData();
-    }
-  }, [currentUser]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     loadUserData();
+  //   }
+  // }, [currentUser]);
 
-  const loadUserData = async () => {
-    setIsLoading(true);
-    try {
-      // Load user's likes
-      const likes = await getLikesByUser(currentUser.uid);
-      setUserLikes(likes);
+  // const loadUserData = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     // Load user's likes
+  //     const likes = await getLikesByUser(currentUser.uid);
+  //     setUserLikes(likes);
       
-      // Load user's comments
-      const comments = await getCommentsByUser(currentUser.uid);
-      setUserComments(comments);
+  //     // Load user's comments
+  //     const comments = await getCommentsByUser(currentUser.uid);
+  //     setUserComments(comments);
       
-      // Map likes to artworks
-      const likedArtworkData = [];
-      for (const like of likes) {
-        const artwork = artworks.find(art => art.id === like.artworkId);
-        if (artwork) {
-          const likeCount = await getLikeCount(artwork.id);
-          const comments = await getComments(artwork.id);
-          likedArtworkData.push({
-            ...artwork,
-            likeCount,
-            commentCount: comments.length,
-            likedAt: like.createdAt
-          });
-        }
-      }
-      setLikedArtworks(likedArtworkData);
+  //     // Map likes to artworks
+  //     const likedArtworkData = [];
+  //     for (const like of likes) {
+  //       const artwork = artworks.find(art => art.id === like.artworkId);
+  //       if (artwork) {
+  //         const likeCount = await getLikeCount(artwork.id);
+  //         const comments = await getComments(artwork.id);
+  //         likedArtworkData.push({
+  //           ...artwork,
+  //           likeCount,
+  //           commentCount: comments.length,
+  //           likedAt: like.createdAt
+  //         });
+  //       }
+  //     }
+  //     setLikedArtworks(likedArtworkData);
       
-      // Map comments to artworks
-      const commentedArtworkData = [];
-      for (const comment of comments) {
-        const artwork = artworks.find(art => art.id === comment.artworkId);
-        if (artwork) {
-          const likeCount = await getLikeCount(artwork.id);
-          const comments = await getComments(artwork.id);
-          commentedArtworkData.push({
-            ...artwork,
-            commentData: comment,
-            likeCount,
-            commentCount: comments.length
-          });
-        }
-      }
-      setCommentedArtworks(commentedArtworkData);
+  //     // Map comments to artworks
+  //     const commentedArtworkData = [];
+  //     for (const comment of comments) {
+  //       const artwork = artworks.find(art => art.id === comment.artworkId);
+  //       if (artwork) {
+  //         const likeCount = await getLikeCount(artwork.id);
+  //         const comments = await getComments(artwork.id);
+  //         commentedArtworkData.push({
+  //           ...artwork,
+  //           commentData: comment,
+  //           likeCount,
+  //           commentCount: comments.length
+  //         });
+  //       }
+  //     }
+  //     setCommentedArtworks(commentedArtworkData);
       
-    } catch (error) {
-      console.error('Error loading user data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //   } catch (error) {
+  //     console.error('Error loading user data:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
