@@ -105,7 +105,7 @@ const artworks = [
     {
         id: 'artwork-9',
         image: '/PanaromaEverest.jpg',
-        title: 'Everest Panorama',
+        title: 'Annapurna Panorama',
         medium: 'Acrlic on Canvas',
         year: '2025',
         onEtsy: true,
