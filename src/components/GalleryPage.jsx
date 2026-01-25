@@ -4,9 +4,9 @@ import artworks from '../data/artworks';
 import Navbar from './Navbar';
 import ImageZoomModal from './ImageZoomModal';
 import { useAuth } from '../contexts/AuthContext';
-import { 
-  getLikeCount, 
-  checkUserLike, 
+import {
+  getLikeCount,
+  checkUserLike,
   likeArtwork,
   getComments
 } from '../services/artworkInteraction';
@@ -15,17 +15,36 @@ import Dialog from './Dialog';
 import AuthModal from './AuthModal';
 import useDialog from '../hooks/useDialog';
 
+// --- Helpers for ISO date sorting/filtering ---
+// Expected: artwork.date = "YYYY-MM-DD"
+const getArtworkTime = (artwork) => {
+  const t = Date.parse(artwork?.date);
+  return Number.isNaN(t) ? -Infinity : t;
+};
+
+// Use year from artwork.year if present, otherwise derive from date (YYYY-MM-DD)
+const getArtworkYear = (artwork) => {
+  const y = (artwork?.year ?? '').toString().trim();
+  if (y) return y;
+
+  const d = (artwork?.date ?? '').toString().trim();
+  if (d && d.length >= 4) return d.slice(0, 4);
+
+  return '';
+};
+
 const GalleryPage = () => {
   const [allArtworks, setAllArtworks] = useState([]);
+
   // Gallery controls
   const [searchQuery, setSearchQuery] = useState('');
   const [filterMedium, setFilterMedium] = useState('all');
   const [filterYear, setFilterYear] = useState('all');
-  const [sortBy, setSortBy] = useState('featured');
+  const [sortBy, setSortBy] = useState('featured'); // featured | newest | oldest | title
 
   const [selectedArtwork, setSelectedArtwork] = useState(null);
   const [artworkStats, setArtworkStats] = useState({});
-  const { currentUser, loginWithGoogle } = useAuth();
+  const { currentUser } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const resetFilters = () => {
@@ -47,10 +66,12 @@ const GalleryPage = () => {
   const yearOptions = useMemo(() => {
     const set = new Set(
       allArtworks
-        .map((a) => (a.year ?? '').toString().trim())
+        .map((a) => getArtworkYear(a))
+        .map((y) => y.toString().trim())
         .filter(Boolean)
     );
-    // Sort years descending when possible
+
+    // Sort years descending if numeric, else lexicographic
     return Array.from(set).sort((a, b) => {
       const na = Number(a);
       const nb = Number(b);
@@ -62,23 +83,26 @@ const GalleryPage = () => {
 
   const displayedArtworks = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-
     let list = [...allArtworks];
 
+    // Filter: medium
     if (filterMedium !== 'all') {
       list = list.filter((a) => (a.medium || '').toString() === filterMedium);
     }
 
+    // Filter: year (derived from date if needed)
     if (filterYear !== 'all') {
-      list = list.filter((a) => (a.year ?? '').toString() === filterYear);
+      list = list.filter((a) => getArtworkYear(a) === filterYear);
     }
 
+    // Search
     if (q) {
       list = list.filter((a) => {
         const haystack = [
           a.title,
           a.medium,
-          a.year,
+          getArtworkYear(a),
+          a.date, // include full date in search
           a.dimensions,
           a.price
         ]
@@ -89,48 +113,29 @@ const GalleryPage = () => {
       });
     }
 
-    const getYear = (a) => {
-      const n = Number((a.year ?? '').toString().trim());
-      return Number.isNaN(n) ? null : n;
-    };
-
-    const compareYearsDesc = (a, b) => {
-      const ya = getYear(a);
-      const yb = getYear(b);
-      if (ya == null && yb == null) return 0;
-      if (ya == null) return 1;
-      if (yb == null) return -1;
-      return yb - ya;
-    };
-
-    const compareYearsAsc = (a, b) => {
-      const ya = getYear(a);
-      const yb = getYear(b);
-      if (ya == null && yb == null) return 0;
-      if (ya == null) return 1;
-      if (yb == null) return -1;
-      return ya - yb;
-    };
-
+    // Sort
     if (sortBy === 'featured') {
       list.sort((a, b) => {
         const fa = a.isFeatured ? 1 : 0;
         const fb = b.isFeatured ? 1 : 0;
         if (fa !== fb) return fb - fa;
-        const yd = compareYearsDesc(a, b);
-        if (yd !== 0) return yd;
+
+        // then newest by date
+        const td = getArtworkTime(b) - getArtworkTime(a);
+        if (td !== 0) return td;
+
         return (a.title || '').localeCompare(b.title || '');
       });
     } else if (sortBy === 'newest') {
       list.sort((a, b) => {
-        const yd = compareYearsDesc(a, b);
-        if (yd !== 0) return yd;
+        const td = getArtworkTime(b) - getArtworkTime(a);
+        if (td !== 0) return td;
         return (a.title || '').localeCompare(b.title || '');
       });
     } else if (sortBy === 'oldest') {
       list.sort((a, b) => {
-        const yd = compareYearsAsc(a, b);
-        if (yd !== 0) return yd;
+        const td = getArtworkTime(a) - getArtworkTime(b);
+        if (td !== 0) return td;
         return (a.title || '').localeCompare(b.title || '');
       });
     } else if (sortBy === 'title') {
@@ -139,7 +144,6 @@ const GalleryPage = () => {
 
     return list;
   }, [allArtworks, filterMedium, filterYear, searchQuery, sortBy]);
-
 
   // Use dialog hook
   const loginDialog = useDialog();
@@ -152,70 +156,59 @@ const GalleryPage = () => {
   }, [currentUser]); // Re-load when user auth changes
 
   const loadArtworkStats = async () => {
-    const stats = {};    
-
-    
-    // Process artworks in batches to avoid too many simultaneous requests
+    const stats = {};
     const batchSize = 5;
-    
+
     for (let i = 0; i < artworks.length; i += batchSize) {
       const batch = artworks.slice(i, i + batchSize);
-      
+
       const batchPromises = batch.map(async (artwork) => {
         try {
-          // Get like count and comment count in parallel
           const [likeCount, comments] = await Promise.all([
             getLikeCount(artwork.id),
             getComments(artwork.id)
           ]);
-          
+
           const commentCount = comments.length;
-          
-          // Check if current user liked it
+
           let userLiked = false;
           if (currentUser) {
             userLiked = await checkUserLike(artwork.id, currentUser.uid);
           }
-          
 
-          
           return {
             id: artwork.id,
-            stats: { 
-              likeCount, 
-              userLiked, 
-              commentCount 
+            stats: {
+              likeCount,
+              userLiked,
+              commentCount
             }
           };
         } catch (error) {
           console.error(`Error loading stats for ${artwork.id}:`, error);
           return {
             id: artwork.id,
-            stats: { 
-              likeCount: 0, 
-              userLiked: false, 
-              commentCount: 0 
+            stats: {
+              likeCount: 0,
+              userLiked: false,
+              commentCount: 0
             }
           };
         }
       });
-      
-      // Wait for batch to complete
+
       const batchResults = await Promise.all(batchPromises);
-      
-      // Update stats
       batchResults.forEach(({ id, stats: artworkStats }) => {
         stats[id] = artworkStats;
       });
     }
-    
 
     setArtworkStats(stats);
   };
 
   const handleLike = async (e, artworkId) => {
     e.stopPropagation();
-    
+
     if (!currentUser) {
       loginDialog.showDialog({
         title: 'Sign In Required',
@@ -224,32 +217,32 @@ const GalleryPage = () => {
         confirmText: 'Sign In Now',
         onConfirm: () => {
           loginDialog.hideDialog();
-          setShowAuthModal(true); // Open AuthModal instead of Google login
+          setShowAuthModal(true);
         },
         cancelText: 'Continue Browsing',
         showCancel: true
       });
       return;
     }
-    
+
     try {
       const result = await likeArtwork(artworkId, currentUser.uid);
       const newStats = { ...artworkStats };
-      
+
       if (result.liked) {
         newStats[artworkId] = {
           ...newStats[artworkId],
-          likeCount: newStats[artworkId].likeCount + 1,
+          likeCount: (newStats[artworkId]?.likeCount || 0) + 1,
           userLiked: true
         };
       } else {
         newStats[artworkId] = {
           ...newStats[artworkId],
-          likeCount: newStats[artworkId].likeCount - 1,
+          likeCount: (newStats[artworkId]?.likeCount || 0) - 1,
           userLiked: false
         };
       }
-      
+
       setArtworkStats(newStats);
     } catch (error) {
       console.error('Error liking artwork:', error);
@@ -261,17 +254,6 @@ const GalleryPage = () => {
     }
   };
 
-  // Add this function to update comment count when a new comment is added
-  // const updateCommentCount = (artworkId, change) => {
-  //   setArtworkStats(prev => ({
-  //     ...prev,
-  //     [artworkId]: {
-  //       ...prev[artworkId],
-  //       commentCount: (prev[artworkId]?.commentCount || 0) + change
-  //     }
-  //   }));
-  // };
-
   const handleEtsyClick = (e, etsyLink) => {
     e.stopPropagation();
     window.open(etsyLink, '_blank', 'noopener,noreferrer');
@@ -281,23 +263,22 @@ const GalleryPage = () => {
     setSelectedArtwork(artwork);
   };
 
-  // Refresh stats when modal closes (to get updated comment counts)
   const handleModalClose = () => {
     setSelectedArtwork(null);
-    // loadArtworkStats(); // Refresh stats to get updated comment counts
+    // loadArtworkStats();
   };
 
   return (
     <div className="gallery-page">
       <Navbar />
-            {/* Add AuthModal */}
-      <AuthModal 
-        isOpen={showAuthModal} 
-        onClose={() => setShowAuthModal(false)} 
-      />
-      <div style={{ paddingTop: '-15px' }}>
+
+      {/* Auth modal */}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+
+      <div>
         <section className="gallery-grid-section">
           <div className="container">
+            {/* Controls */}
             <div className="gallery-controls">
               <div className="controls-top">
                 <div className="search-field">
@@ -306,7 +287,7 @@ const GalleryPage = () => {
                     type="search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search artworks (title, medium, year...)"
+                    placeholder="Search artworks (title, medium, date...)"
                     aria-label="Search artworks"
                   />
                   {searchQuery && (
@@ -389,22 +370,23 @@ const GalleryPage = () => {
               </div>
             </div>
 
+            {/* Grid */}
             {displayedArtworks.length === 0 ? (
               <div className="empty-state">
                 <h3>No artworks found</h3>
-                <p>Check back later for new artworks.</p>
+                <p>Try changing filters or search terms.</p>
               </div>
             ) : (
               <div className="artworks-grid">
-                {displayedArtworks.map(artwork => (
-                  <div 
-                    key={artwork.id} 
+                {displayedArtworks.map((artwork) => (
+                  <div
+                    key={artwork.id}
                     className="artwork-card"
                     onClick={() => handleCardClick(artwork)}
                   >
                     <div className="artwork-image-container">
-                      <img 
-                        src={artwork.image} 
+                      <img
+                        src={artwork.image}
                         alt={artwork.title}
                         className="artwork-image"
                         loading="lazy"
@@ -413,7 +395,7 @@ const GalleryPage = () => {
                         <div className="overlay-content">
                           <span className="view-button">View Details</span>
                           {artwork.onEtsy && artwork.etsyLink && (
-                            <span 
+                            <span
                               className="buy-button"
                               onClick={(e) => handleEtsyClick(e, artwork.etsyLink)}
                             >
@@ -422,33 +404,32 @@ const GalleryPage = () => {
                           )}
                         </div>
                       </div>
-                      {artwork.isFeatured && (
-                        <div className="featured-badge">Featured</div>
-                      )}
+                      {artwork.isFeatured && <div className="featured-badge">Featured</div>}
                     </div>
-                    
+
                     <div className="artwork-info">
                       <h3 className="artwork-title">{artwork.title}</h3>
                       <p className="artwork-medium">{artwork.medium}</p>
-                      <p className="artwork-year">{artwork.year}</p>
+
+                      {/* Prefer showing year (derived if needed); keep your existing layout intact */}
+                      <p className="artwork-year">{getArtworkYear(artwork) || artwork.year}</p>
+
                       {artwork.dimensions && (
                         <p className="artwork-dimensions">{artwork.dimensions}</p>
                       )}
-                      {artwork.price && (
-                        <p className="artwork-price">${artwork.price}</p>
-                      )}
-                      
-                      {/* Like and Comment Count */}
+                      {artwork.price && <p className="artwork-price">${artwork.price}</p>}
+
+                      {/* Like and Comment Count (kept commented out) */}
                       {/* <div className="artwork-interaction">
-                        <button 
+                        <button
                           className={`like-btn ${artworkStats[artwork.id]?.userLiked ? 'liked' : ''}`}
                           onClick={(e) => handleLike(e, artwork.id)}
                           title={currentUser ? 'Like this artwork' : 'Sign in to like'}
                         >
                           ❤️ <span className="like-count">{artworkStats[artwork.id]?.likeCount || 0}</span>
                         </button>
-                        
-                        <button 
+
+                        <button
                           className="comment-btn"
                           onClick={(e) => {
                             e.stopPropagation();
@@ -461,12 +442,12 @@ const GalleryPage = () => {
                           </span>
                         </button>
                       </div> */}
-                      
+
                       {artwork.onEtsy && artwork.etsyLink && (
                         <div className="etsy-link-mobile">
-                          <a 
-                            href={artwork.etsyLink} 
-                            target="_blank" 
+                          <a
+                            href={artwork.etsyLink}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="etsy-link-text"
                             onClick={(e) => e.stopPropagation()}
@@ -483,8 +464,9 @@ const GalleryPage = () => {
           </div>
         </section>
 
+        {/* Modal (navigates within filtered/sorted results) */}
         {selectedArtwork && (
-          <ImageZoomModal 
+          <ImageZoomModal
             artwork={selectedArtwork}
             onClose={handleModalClose}
             onNext={() => {
@@ -499,16 +481,11 @@ const GalleryPage = () => {
                 (art) => art.id === selectedArtwork.id
               );
               const prevIndex =
-                currentIndex === 0
-                  ? displayedArtworks.length - 1
-                  : currentIndex - 1;
+                currentIndex === 0 ? displayedArtworks.length - 1 : currentIndex - 1;
               setSelectedArtwork(displayedArtworks[prevIndex]);
             }}
             hasNext={displayedArtworks.length > 1}
             hasPrev={displayedArtworks.length > 1}
-            // Pass the update function to the modal
-            // onCommentAdded={() => updateCommentCount(selectedArtwork.id, 1)}
-            // onCommentDeleted={() => updateCommentCount(selectedArtwork.id, -1)}
           />
         )}
       </div>
