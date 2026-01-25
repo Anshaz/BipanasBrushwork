@@ -1,5 +1,5 @@
 // src/components/GalleryPage.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import artworks from '../data/artworks';
 import Navbar from './Navbar';
 import ImageZoomModal from './ImageZoomModal';
@@ -17,10 +17,129 @@ import useDialog from '../hooks/useDialog';
 
 const GalleryPage = () => {
   const [allArtworks, setAllArtworks] = useState([]);
+  // Gallery controls
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterMedium, setFilterMedium] = useState('all');
+  const [filterYear, setFilterYear] = useState('all');
+  const [sortBy, setSortBy] = useState('featured');
+
   const [selectedArtwork, setSelectedArtwork] = useState(null);
   const [artworkStats, setArtworkStats] = useState({});
   const { currentUser, loginWithGoogle } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const resetFilters = () => {
+    setSearchQuery('');
+    setFilterMedium('all');
+    setFilterYear('all');
+    setSortBy('featured');
+  };
+
+  const mediumOptions = useMemo(() => {
+    const set = new Set(
+      allArtworks
+        .map((a) => (a.medium || '').toString().trim())
+        .filter(Boolean)
+    );
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [allArtworks]);
+
+  const yearOptions = useMemo(() => {
+    const set = new Set(
+      allArtworks
+        .map((a) => (a.year ?? '').toString().trim())
+        .filter(Boolean)
+    );
+    // Sort years descending when possible
+    return Array.from(set).sort((a, b) => {
+      const na = Number(a);
+      const nb = Number(b);
+      const bothNums = !Number.isNaN(na) && !Number.isNaN(nb);
+      if (bothNums) return nb - na;
+      return b.localeCompare(a);
+    });
+  }, [allArtworks]);
+
+  const displayedArtworks = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+
+    let list = [...allArtworks];
+
+    if (filterMedium !== 'all') {
+      list = list.filter((a) => (a.medium || '').toString() === filterMedium);
+    }
+
+    if (filterYear !== 'all') {
+      list = list.filter((a) => (a.year ?? '').toString() === filterYear);
+    }
+
+    if (q) {
+      list = list.filter((a) => {
+        const haystack = [
+          a.title,
+          a.medium,
+          a.year,
+          a.dimensions,
+          a.price
+        ]
+          .filter(Boolean)
+          .map((v) => v.toString().toLowerCase())
+          .join(' • ');
+        return haystack.includes(q);
+      });
+    }
+
+    const getYear = (a) => {
+      const n = Number((a.year ?? '').toString().trim());
+      return Number.isNaN(n) ? null : n;
+    };
+
+    const compareYearsDesc = (a, b) => {
+      const ya = getYear(a);
+      const yb = getYear(b);
+      if (ya == null && yb == null) return 0;
+      if (ya == null) return 1;
+      if (yb == null) return -1;
+      return yb - ya;
+    };
+
+    const compareYearsAsc = (a, b) => {
+      const ya = getYear(a);
+      const yb = getYear(b);
+      if (ya == null && yb == null) return 0;
+      if (ya == null) return 1;
+      if (yb == null) return -1;
+      return ya - yb;
+    };
+
+    if (sortBy === 'featured') {
+      list.sort((a, b) => {
+        const fa = a.isFeatured ? 1 : 0;
+        const fb = b.isFeatured ? 1 : 0;
+        if (fa !== fb) return fb - fa;
+        const yd = compareYearsDesc(a, b);
+        if (yd !== 0) return yd;
+        return (a.title || '').localeCompare(b.title || '');
+      });
+    } else if (sortBy === 'newest') {
+      list.sort((a, b) => {
+        const yd = compareYearsDesc(a, b);
+        if (yd !== 0) return yd;
+        return (a.title || '').localeCompare(b.title || '');
+      });
+    } else if (sortBy === 'oldest') {
+      list.sort((a, b) => {
+        const yd = compareYearsAsc(a, b);
+        if (yd !== 0) return yd;
+        return (a.title || '').localeCompare(b.title || '');
+      });
+    } else if (sortBy === 'title') {
+      list.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+    }
+
+    return list;
+  }, [allArtworks, filterMedium, filterYear, searchQuery, sortBy]);
+
 
   // Use dialog hook
   const loginDialog = useDialog();
@@ -176,17 +295,108 @@ const GalleryPage = () => {
         isOpen={showAuthModal} 
         onClose={() => setShowAuthModal(false)} 
       />
-      <div style={{ paddingTop: '30px' }}>
+      <div style={{ paddingTop: '-15px' }}>
         <section className="gallery-grid-section">
           <div className="container">
-            {allArtworks.length === 0 ? (
+            <div className="gallery-controls">
+              <div className="controls-top">
+                <div className="search-field">
+                  <input
+                    className="search-input"
+                    type="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search artworks (title, medium, year...)"
+                    aria-label="Search artworks"
+                  />
+                  {searchQuery && (
+                    <button
+                      className="search-clear"
+                      onClick={() => setSearchQuery('')}
+                      aria-label="Clear search"
+                      type="button"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+
+                <button
+                  className="filters-reset"
+                  onClick={resetFilters}
+                  type="button"
+                  disabled={
+                    !searchQuery &&
+                    filterMedium === 'all' &&
+                    filterYear === 'all' &&
+                    sortBy === 'featured'
+                  }
+                >
+                  Reset
+                </button>
+              </div>
+
+              <div className="filters-row">
+                <label className="filter-group">
+                  <span className="filter-label">Medium</span>
+                  <select
+                    className="filter-select"
+                    value={filterMedium}
+                    onChange={(e) => setFilterMedium(e.target.value)}
+                  >
+                    <option value="all">All</option>
+                    {mediumOptions.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="filter-group">
+                  <span className="filter-label">Year</span>
+                  <select
+                    className="filter-select"
+                    value={filterYear}
+                    onChange={(e) => setFilterYear(e.target.value)}
+                  >
+                    <option value="all">All</option>
+                    {yearOptions.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="filter-group">
+                  <span className="filter-label">Sort</span>
+                  <select
+                    className="filter-select"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  >
+                    <option value="featured">Featured first</option>
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="title">Title (A–Z)</option>
+                  </select>
+                </label>
+
+                <div className="results-count" aria-live="polite">
+                  {displayedArtworks.length} artwork{displayedArtworks.length === 1 ? '' : 's'}
+                </div>
+              </div>
+            </div>
+
+            {displayedArtworks.length === 0 ? (
               <div className="empty-state">
                 <h3>No artworks found</h3>
                 <p>Check back later for new artworks.</p>
               </div>
             ) : (
               <div className="artworks-grid">
-                {allArtworks.map(artwork => (
+                {displayedArtworks.map(artwork => (
                   <div 
                     key={artwork.id} 
                     className="artwork-card"
@@ -278,22 +488,24 @@ const GalleryPage = () => {
             artwork={selectedArtwork}
             onClose={handleModalClose}
             onNext={() => {
-              const currentIndex = allArtworks.findIndex(
-                art => art.id === selectedArtwork.id
+              const currentIndex = displayedArtworks.findIndex(
+                (art) => art.id === selectedArtwork.id
               );
-              const nextIndex = (currentIndex + 1) % allArtworks.length;
-              setSelectedArtwork(allArtworks[nextIndex]);
+              const nextIndex = (currentIndex + 1) % displayedArtworks.length;
+              setSelectedArtwork(displayedArtworks[nextIndex]);
             }}
             onPrev={() => {
-              const currentIndex = allArtworks.findIndex(
-                art => art.id === selectedArtwork.id
+              const currentIndex = displayedArtworks.findIndex(
+                (art) => art.id === selectedArtwork.id
               );
-              const prevIndex = currentIndex === 0 ? 
-                allArtworks.length - 1 : currentIndex - 1;
-              setSelectedArtwork(allArtworks[prevIndex]);
+              const prevIndex =
+                currentIndex === 0
+                  ? displayedArtworks.length - 1
+                  : currentIndex - 1;
+              setSelectedArtwork(displayedArtworks[prevIndex]);
             }}
-            hasNext={allArtworks.length > 1}
-            hasPrev={allArtworks.length > 1}
+            hasNext={displayedArtworks.length > 1}
+            hasPrev={displayedArtworks.length > 1}
             // Pass the update function to the modal
             // onCommentAdded={() => updateCommentCount(selectedArtwork.id, 1)}
             // onCommentDeleted={() => updateCommentCount(selectedArtwork.id, -1)}
