@@ -343,6 +343,12 @@ const ImageZoomModal = ({
               >
                 Artwork
               </button>
+              <button
+                className={`modal-tab ${activeTab === 'details' ? 'active' : ''}`}
+                onClick={() => setActiveTab('details')}
+              >
+                Details
+              </button>
               {/* <button
                 className={`modal-tab ${activeTab === 'comments' ? 'active' : ''}`}
                 onClick={() => setActiveTab('comments')}
@@ -436,6 +442,54 @@ const ImageZoomModal = ({
 
                   {artwork.onEtsy && artwork.etsyLink ? (
                     <div className="etsy-link-modal-mobile">
+                      <a
+                        href={artwork.etsyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="etsy-link-text"
+                      >
+                        Buy on Etsy
+                      </a>
+                    </div>
+                  ) : (
+                    <p className="not-on-etsy-text">
+                      Available on request. <a href="/contact" className="contact-link">Contact me</a>
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+
+            {/* Details Tab */}
+            {activeTab === 'details' && (
+              <div className="details-tab">
+                <div className="details-content">
+                  <h3 className="details-title">{artwork.title}</h3>
+                  <p className="details-meta">
+                    {[artwork.medium, artwork.year].filter(Boolean).join(' • ')}
+                  </p>
+                  {artwork.dimensions && (
+                    <p className="details-dimensions">{artwork.dimensions}</p>
+                  )}
+
+                  {/* Description */}
+                  {artwork?.description && (
+                    <div className="mt-4">
+                      <h3 className="text-sm font-semibold tracking-wide uppercase opacity-80">
+                        Description
+                      </h3>
+
+                      <div className="mt-2 rounded-xl border border-white/10 bg-white/5 p-4">
+                        <p className="text-sm leading-relaxed text-white/90 whitespace-pre-line">
+                          {artwork.description}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {artwork.onEtsy && artwork.etsyLink ? (
+                    <div className="etsy-link-modal">
                       <a
                         href={artwork.etsyLink}
                         target="_blank"
