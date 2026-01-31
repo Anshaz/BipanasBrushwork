@@ -13,6 +13,7 @@ import Dialog from './Dialog';
 import './ImageZoomModal.css';
 import useDialog from '../hooks/useDialog';
 import AuthModal from './AuthModal';
+import { getImageVariants } from '../utils/imageVariants';
 
 const ImageZoomModal = ({
   artwork,
@@ -37,6 +38,8 @@ const ImageZoomModal = ({
   const [activeTab, setActiveTab] = useState('image');
   const { currentUser } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const img = getImageVariants(artwork?.image);
 
   // Use the dialog hook
   const loginDialog = useDialog();
@@ -385,14 +388,17 @@ const ImageZoomModal = ({
                     style={{ cursor: zoomLevel > 1 ? 'grab' : 'default' }}
                   >
                     <img
-                      src={artwork.image}
-                      alt={artwork.title}
+                      src={img.src}
+                      srcSet={img.srcSet}
+                      sizes="(max-width: 768px) 95vw, 900px"
+                      alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${artwork.year ? ` (${artwork.year})` : ''} by Bipana`}
                       className={`zoom-image ${imageLoaded ? 'loaded' : ''}`}
                       style={{
                         transform: `scale(${zoomLevel}) translate(${position.x}px, ${position.y}px)`,
                         cursor: zoomLevel > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in'
                       }}
                       onLoad={() => setImageLoaded(true)}
+                      decoding="async"
                     />
                   </div>
 

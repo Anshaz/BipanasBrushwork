@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import './AboutPage.css';
 import { useSEO } from '../seo/useSEO';
+import { pickSource } from '../utils/imageVariants';
 
 const AboutPage = () => {
   useSEO({
@@ -36,9 +37,11 @@ const AboutPage = () => {
               <div className="hero-image">
                 <div className="artist-image-container">
                   <img
-                    src="/bipana.jpg"
+                    src={pickSource('/bipana.jpg', 640)}
                     alt="Bipana - Artist"
                     className="artist-image"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="artist-image-overlay">
                     <div className="overlay-content">

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from './Navbar'; // Import the shared Navbar
 import './Homepage.css';
 import artworks from '../data/artworks';
+import { getImageVariants, pickSource } from '../utils/imageVariants';
 import { useSEO } from '../seo/useSEO';
 
 const Homepage = () => {
@@ -67,11 +68,24 @@ const Homepage = () => {
                     className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
                   >
                     <div className="artwork-card">
-                      <img
-                        src={artwork.image}
+                      {(() => {
+                        const v = getImageVariants(artwork.image);
+                        const isActive = index === currentImageIndex;
+                        // Active slide uses a larger responsive image; inactive uses a tiny thumbnail
+                        const src = isActive ? (pickSource(artwork.image, 640) || v.src) : v.thumb;
+                        const srcSet = isActive ? v.srcSet : undefined;
+                        return (
+                          <img
+                            src={src}
+                            srcSet={srcSet}
+                            sizes="(max-width: 768px) 90vw, 520px"
                         alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${artwork.year ? ` (${artwork.year})` : ''} by Bipana`}
                         className="artwork-image-carousal"
-                      />
+                            loading={isActive ? 'eager' : 'lazy'}
+                            decoding="async"
+                          />
+                        );
+                      })()}
                       <div className="artwork-overlay">
                         <h3>{artwork.title}</h3>
                         <p>{artwork.medium} • {artwork.year}</p>
@@ -109,11 +123,19 @@ const Homepage = () => {
                 .filter(artwork => artwork.latestWork === true)
                 .map(artwork => (
                   <div key={artwork.id} className="gallery-item">
-                    <img
-                      src={artwork.image}
+                    {(() => {
+                      const v = getImageVariants(artwork.image);
+                      return (
+                        <img
+                          src={v.thumb}
+                          srcSet={v.srcSet}
+                          sizes="(max-width: 768px) 45vw, 260px"
                       alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''} by Bipana`}
                       loading="lazy"
-                    />
+                          decoding="async"
+                        />
+                      );
+                    })()}
                     <div className="item-info">
                       <h4>{artwork.title}</h4>
                       <span>{artwork.medium}</span>

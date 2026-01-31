@@ -15,6 +15,7 @@ import Dialog from './Dialog';
 import AuthModal from './AuthModal';
 import useDialog from '../hooks/useDialog';
 import { useSEO } from '../seo/useSEO';
+import { getImageVariants } from '../utils/imageVariants';
 
 // --- Helpers for ISO date sorting/filtering ---
 // Expected: artwork.date = "YYYY-MM-DD"
@@ -393,6 +394,9 @@ const GalleryPage = () => {
             ) : (
               <div className="artworks-grid">
                 {displayedArtworks.map((artwork) => (
+                  (() => {
+                    const v = getImageVariants(artwork.image);
+                    return (
                   <div
                     key={artwork.id}
                     className="artwork-card"
@@ -400,10 +404,11 @@ const GalleryPage = () => {
                   >
                     <div className="artwork-image-container">
                       <img
-                        src={artwork.image}
+                        src={v.thumb}
                         alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${getArtworkYear(artwork) ? ` (${getArtworkYear(artwork)})` : ''} by Bipana`}
                         className="artwork-image"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="artwork-overlay">
                         <div className="overlay-content">
@@ -472,6 +477,8 @@ const GalleryPage = () => {
                       )}
                     </div>
                   </div>
+                    );
+                  })()
                 ))}
               </div>
             )}

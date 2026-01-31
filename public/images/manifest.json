@@ -1,0 +1,684 @@
+[
+  {
+    "id": "annapurna",
+    "title": "Annapurna",
+    "originalFile": "Annapurna.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 270,
+      "src": "/images/annapurna-thumb.webp",
+      "bytes": 14700
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 481,
+        "src": "/images/annapurna-640.webp",
+        "bytes": 45918
+      },
+      {
+        "width": 1280,
+        "height": 961,
+        "src": "/images/annapurna-1280.webp",
+        "bytes": 152020
+      }
+    ],
+    "original": {
+      "width": 4624,
+      "height": 3472,
+      "src": "/originals/Annapurna.jpg",
+      "bytes": 3466799
+    }
+  },
+  {
+    "id": "bipana",
+    "title": "bipana",
+    "originalFile": "bipana.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 516,
+      "src": "/images/bipana-thumb.webp",
+      "bytes": 11906
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 917,
+        "src": "/images/bipana-640.webp",
+        "bytes": 37742
+      },
+      {
+        "width": 1280,
+        "height": 1833,
+        "src": "/images/bipana-1280.webp",
+        "bytes": 105870
+      }
+    ],
+    "original": {
+      "width": 2113,
+      "height": 3026,
+      "src": "/originals/bipana.jpg",
+      "bytes": 759909
+    }
+  },
+  {
+    "id": "cloudymountains",
+    "title": "CloudyMountains",
+    "originalFile": "CloudyMountains.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 285,
+      "src": "/images/cloudymountains-thumb.webp",
+      "bytes": 13338
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 506,
+        "src": "/images/cloudymountains-640.webp",
+        "bytes": 47526
+      },
+      {
+        "width": 1020,
+        "height": 807,
+        "src": "/images/cloudymountains-1020.webp",
+        "bytes": 138694
+      }
+    ],
+    "original": {
+      "width": 1020,
+      "height": 807,
+      "src": "/originals/CloudyMountains.jpg",
+      "bytes": 1576946
+    }
+  },
+  {
+    "id": "easterbunny",
+    "title": "EasterBunny",
+    "originalFile": "EasterBunny.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 269,
+      "src": "/images/easterbunny-thumb.webp",
+      "bytes": 17666
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 479,
+        "src": "/images/easterbunny-640.webp",
+        "bytes": 74730
+      },
+      {
+        "width": 1280,
+        "height": 958,
+        "src": "/images/easterbunny-1280.webp",
+        "bytes": 277680
+      }
+    ],
+    "original": {
+      "width": 4624,
+      "height": 3461,
+      "src": "/originals/EasterBunny.jpg",
+      "bytes": 3751169
+    }
+  },
+  {
+    "id": "everest",
+    "title": "Everest",
+    "originalFile": "Everest.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 237,
+      "src": "/images/everest-thumb.webp",
+      "bytes": 9994
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 422,
+        "src": "/images/everest-640.webp",
+        "bytes": 37106
+      },
+      {
+        "width": 1280,
+        "height": 843,
+        "src": "/images/everest-1280.webp",
+        "bytes": 157830
+      }
+    ],
+    "original": {
+      "width": 3975,
+      "height": 2619,
+      "src": "/originals/Everest.jpg",
+      "bytes": 3683720
+    }
+  },
+  {
+    "id": "everestvillage",
+    "title": "EverestVillage",
+    "originalFile": "EverestVillage.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 270,
+      "src": "/images/everestvillage-thumb.webp",
+      "bytes": 15644
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 481,
+        "src": "/images/everestvillage-640.webp",
+        "bytes": 52354
+      },
+      {
+        "width": 1280,
+        "height": 961,
+        "src": "/images/everestvillage-1280.webp",
+        "bytes": 186698
+      }
+    ],
+    "original": {
+      "width": 4624,
+      "height": 3472,
+      "src": "/originals/EverestVillage.jpg",
+      "bytes": 4124234
+    }
+  },
+  {
+    "id": "everestvillagecolorful",
+    "title": "EverestVillagecolorful",
+    "originalFile": "EverestVillagecolorful.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 286,
+      "src": "/images/everestvillagecolorful-thumb.webp",
+      "bytes": 14234
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 509,
+        "src": "/images/everestvillagecolorful-640.webp",
+        "bytes": 52416
+      },
+      {
+        "width": 1280,
+        "height": 1017,
+        "src": "/images/everestvillagecolorful-1280.webp",
+        "bytes": 190384
+      }
+    ],
+    "original": {
+      "width": 3254,
+      "height": 2586,
+      "src": "/originals/EverestVillagecolorful.jpg",
+      "bytes": 1879543
+    }
+  },
+  {
+    "id": "hallstatt",
+    "title": "Hallstatt",
+    "originalFile": "Hallstatt.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 394,
+      "src": "/images/hallstatt-thumb.webp",
+      "bytes": 25144
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 700,
+        "src": "/images/hallstatt-640.webp",
+        "bytes": 95294
+      },
+      {
+        "width": 1280,
+        "height": 1400,
+        "src": "/images/hallstatt-1280.webp",
+        "bytes": 397030
+      }
+    ],
+    "original": {
+      "width": 3426,
+      "height": 3746,
+      "src": "/originals/Hallstatt.jpg",
+      "bytes": 4130512
+    }
+  },
+  {
+    "id": "himalayayak",
+    "title": "HimalayaYak",
+    "originalFile": "HimalayaYak.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 270,
+      "src": "/images/himalayayak-thumb.webp",
+      "bytes": 12280
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 480,
+        "src": "/images/himalayayak-640.webp",
+        "bytes": 53366
+      },
+      {
+        "width": 1280,
+        "height": 960,
+        "src": "/images/himalayayak-1280.webp",
+        "bytes": 225162
+      }
+    ],
+    "original": {
+      "width": 2345,
+      "height": 1759,
+      "src": "/originals/HimalayaYak.jpg",
+      "bytes": 779264
+    }
+  },
+  {
+    "id": "jam-on-toast",
+    "title": "Jam on Toast",
+    "originalFile": "Jam on Toast.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 270,
+      "src": "/images/jam-on-toast-thumb.webp",
+      "bytes": 11938
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 480,
+        "src": "/images/jam-on-toast-640.webp",
+        "bytes": 33330
+      },
+      {
+        "width": 1280,
+        "height": 960,
+        "src": "/images/jam-on-toast-1280.webp",
+        "bytes": 113370
+      }
+    ],
+    "original": {
+      "width": 4096,
+      "height": 3072,
+      "src": "/originals/Jam on Toast.jpg",
+      "bytes": 6573598
+    }
+  },
+  {
+    "id": "kilimanjaro",
+    "title": "Kilimanjaro",
+    "originalFile": "Kilimanjaro.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 287,
+      "src": "/images/kilimanjaro-thumb.webp",
+      "bytes": 15304
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 511,
+        "src": "/images/kilimanjaro-640.webp",
+        "bytes": 55932
+      },
+      {
+        "width": 1280,
+        "height": 1022,
+        "src": "/images/kilimanjaro-1280.webp",
+        "bytes": 199596
+      }
+    ],
+    "original": {
+      "width": 3614,
+      "height": 2886,
+      "src": "/originals/Kilimanjaro.jpg",
+      "bytes": 991841
+    }
+  },
+  {
+    "id": "ladyinwhite",
+    "title": "LadyInWhite",
+    "originalFile": "LadyInWhite.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 479,
+      "src": "/images/ladyinwhite-thumb.webp",
+      "bytes": 25234
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 852,
+        "src": "/images/ladyinwhite-640.webp",
+        "bytes": 93862
+      },
+      {
+        "width": 1280,
+        "height": 1704,
+        "src": "/images/ladyinwhite-1280.webp",
+        "bytes": 445244
+      }
+    ],
+    "original": {
+      "width": 2253,
+      "height": 3000,
+      "src": "/originals/LadyInWhite.jpg",
+      "bytes": 2182705
+    }
+  },
+  {
+    "id": "logo",
+    "title": "logo",
+    "originalFile": "logo.png",
+    "thumb": {
+      "width": 360,
+      "height": 331,
+      "src": "/images/logo-thumb.webp",
+      "bytes": 8376
+    },
+    "variants": [
+      {
+        "width": 361,
+        "height": 332,
+        "src": "/images/logo-361.webp",
+        "bytes": 13340
+      },
+      {
+        "width": 361,
+        "height": 332,
+        "src": "/images/logo-361.webp",
+        "bytes": 13340
+      }
+    ],
+    "original": {
+      "width": 361,
+      "height": 332,
+      "src": "/originals/logo.png",
+      "bytes": 104550
+    }
+  },
+  {
+    "id": "mountainabstract",
+    "title": "MountainAbstract",
+    "originalFile": "MountainAbstract.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 266,
+      "src": "/images/mountainabstract-thumb.webp",
+      "bytes": 13784
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 473,
+        "src": "/images/mountainabstract-640.webp",
+        "bytes": 57778
+      },
+      {
+        "width": 1280,
+        "height": 945,
+        "src": "/images/mountainabstract-1280.webp",
+        "bytes": 242946
+      }
+    ],
+    "original": {
+      "width": 4624,
+      "height": 3414,
+      "src": "/originals/MountainAbstract.jpg",
+      "bytes": 3912730
+    }
+  },
+  {
+    "id": "mountainvillage",
+    "title": "MountainVillage",
+    "originalFile": "MountainVillage.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 421,
+      "src": "/images/mountainvillage-thumb.webp",
+      "bytes": 20196
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 748,
+        "src": "/images/mountainvillage-640.webp",
+        "bytes": 68858
+      },
+      {
+        "width": 1280,
+        "height": 1495,
+        "src": "/images/mountainvillage-1280.webp",
+        "bytes": 203904
+      }
+    ],
+    "original": {
+      "width": 2948,
+      "height": 3444,
+      "src": "/originals/MountainVillage.jpg",
+      "bytes": 1224664
+    }
+  },
+  {
+    "id": "palampur",
+    "title": "Palampur",
+    "originalFile": "Palampur.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 270,
+      "src": "/images/palampur-thumb.webp",
+      "bytes": 18968
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 479,
+        "src": "/images/palampur-640.webp",
+        "bytes": 64556
+      },
+      {
+        "width": 1280,
+        "height": 959,
+        "src": "/images/palampur-1280.webp",
+        "bytes": 195154
+      }
+    ],
+    "original": {
+      "width": 3472,
+      "height": 2601,
+      "src": "/originals/Palampur.jpg",
+      "bytes": 1982005
+    }
+  },
+  {
+    "id": "panaromaeverest",
+    "title": "PanaromaEverest",
+    "originalFile": "PanaromaEverest.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 142,
+      "src": "/images/panaromaeverest-thumb.webp",
+      "bytes": 6784
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 252,
+        "src": "/images/panaromaeverest-640.webp",
+        "bytes": 26500
+      },
+      {
+        "width": 1280,
+        "height": 504,
+        "src": "/images/panaromaeverest-1280.webp",
+        "bytes": 127972
+      }
+    ],
+    "original": {
+      "width": 4624,
+      "height": 1820,
+      "src": "/originals/PanaromaEverest.jpg",
+      "bytes": 2357583
+    }
+  },
+  {
+    "id": "peanut-butter-on-toast",
+    "title": "Peanut Butter on Toast",
+    "originalFile": "Peanut Butter on Toast.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 270,
+      "src": "/images/peanut-butter-on-toast-thumb.webp",
+      "bytes": 6146
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 480,
+        "src": "/images/peanut-butter-on-toast-640.webp",
+        "bytes": 25392
+      },
+      {
+        "width": 1280,
+        "height": 960,
+        "src": "/images/peanut-butter-on-toast-1280.webp",
+        "bytes": 98520
+      }
+    ],
+    "original": {
+      "width": 4000,
+      "height": 3000,
+      "src": "/originals/Peanut Butter on Toast.jpg",
+      "bytes": 5778795
+    }
+  },
+  {
+    "id": "sailing",
+    "title": "sailing",
+    "originalFile": "sailing.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 516,
+      "src": "/images/sailing-thumb.webp",
+      "bytes": 18330
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 917,
+        "src": "/images/sailing-640.webp",
+        "bytes": 71084
+      },
+      {
+        "width": 1280,
+        "height": 1834,
+        "src": "/images/sailing-1280.webp",
+        "bytes": 328738
+      }
+    ],
+    "original": {
+      "width": 2454,
+      "height": 3516,
+      "src": "/originals/sailing.jpg",
+      "bytes": 5960591
+    }
+  },
+  {
+    "id": "sevenhorses",
+    "title": "sevenhorses",
+    "originalFile": "sevenhorses.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 193,
+      "src": "/images/sevenhorses-thumb.webp",
+      "bytes": 7508
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 343,
+        "src": "/images/sevenhorses-640.webp",
+        "bytes": 21544
+      },
+      {
+        "width": 1280,
+        "height": 686,
+        "src": "/images/sevenhorses-1280.webp",
+        "bytes": 60470
+      }
+    ],
+    "original": {
+      "width": 2837,
+      "height": 1521,
+      "src": "/originals/sevenhorses.jpg",
+      "bytes": 677814
+    }
+  },
+  {
+    "id": "sunset",
+    "title": "Sunset",
+    "originalFile": "Sunset.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 486,
+      "src": "/images/sunset-thumb.webp",
+      "bytes": 13786
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 863,
+        "src": "/images/sunset-640.webp",
+        "bytes": 97210
+      },
+      {
+        "width": 1280,
+        "height": 1727,
+        "src": "/images/sunset-1280.webp",
+        "bytes": 492432
+      }
+    ],
+    "original": {
+      "width": 3428,
+      "height": 4624,
+      "src": "/originals/Sunset.jpg",
+      "bytes": 4586556
+    }
+  },
+  {
+    "id": "valley",
+    "title": "Valley",
+    "originalFile": "Valley.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 301,
+      "src": "/images/valley-thumb.webp",
+      "bytes": 16328
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 535,
+        "src": "/images/valley-640.webp",
+        "bytes": 52868
+      },
+      {
+        "width": 1280,
+        "height": 1071,
+        "src": "/images/valley-1280.webp",
+        "bytes": 212998
+      }
+    ],
+    "original": {
+      "width": 3886,
+      "height": 3251,
+      "src": "/originals/Valley.jpg",
+      "bytes": 2570911
+    }
+  }
+]
