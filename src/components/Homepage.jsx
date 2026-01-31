@@ -4,8 +4,23 @@ import { Link } from 'react-router-dom';
 import Navbar from './Navbar'; // Import the shared Navbar
 import './Homepage.css';
 import artworks from '../data/artworks';
+import { useSEO } from '../seo/useSEO';
 
 const Homepage = () => {
+  useSEO({
+    title: 'Original Art & Paintings',
+    description:
+      'Discover original artworks by Bipana—paintings inspired by Nepal and the Himalayas. Browse featured pieces, latest works, and the full gallery.',
+    path: '/' ,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Bipana',
+      url: 'https://bipanaart.com',
+      jobTitle: 'Artist'
+    }
+  });
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -54,7 +69,7 @@ const Homepage = () => {
                     <div className="artwork-card">
                       <img
                         src={artwork.image}
-                        alt={artwork.title}
+                        alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${artwork.year ? ` (${artwork.year})` : ''} by Bipana`}
                         className="artwork-image-carousal"
                       />
                       <div className="artwork-overlay">
@@ -94,7 +109,11 @@ const Homepage = () => {
                 .filter(artwork => artwork.latestWork === true)
                 .map(artwork => (
                   <div key={artwork.id} className="gallery-item">
-                    <img src={artwork.image} alt={artwork.title} />
+                    <img
+                      src={artwork.image}
+                      alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''} by Bipana`}
+                      loading="lazy"
+                    />
                     <div className="item-info">
                       <h4>{artwork.title}</h4>
                       <span>{artwork.medium}</span>

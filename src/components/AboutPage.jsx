@@ -3,8 +3,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import './AboutPage.css';
+import { useSEO } from '../seo/useSEO';
 
 const AboutPage = () => {
+  useSEO({
+    title: 'About',
+    description:
+      'Learn about Bipana, her artistic journey, and the inspiration behind the artworks influenced by Nepal and the Himalayas.',
+    path: '/about',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'About Bipana',
+      url: 'https://bipanaart.com/about'
+    }
+  });
   return (
     <div className="about-page">
       <Navbar />

@@ -14,6 +14,7 @@ import './GalleryPage.css';
 import Dialog from './Dialog';
 import AuthModal from './AuthModal';
 import useDialog from '../hooks/useDialog';
+import { useSEO } from '../seo/useSEO';
 
 // --- Helpers for ISO date sorting/filtering ---
 // Expected: artwork.date = "YYYY-MM-DD"
@@ -34,6 +35,19 @@ const getArtworkYear = (artwork) => {
 };
 
 const GalleryPage = () => {
+  useSEO({
+    title: 'Gallery',
+    description:
+      'Browse the full gallery of original artworks by Bipana. Filter by medium, year, and discover featured and latest works.',
+    path: '/gallery',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: "Bipana's Brushwork — Gallery",
+      url: 'https://bipanaart.com/gallery'
+    }
+  });
+
   const [allArtworks, setAllArtworks] = useState([]);
 
   // Gallery controls
@@ -387,7 +401,7 @@ const GalleryPage = () => {
                     <div className="artwork-image-container">
                       <img
                         src={artwork.image}
-                        alt={artwork.title}
+                        alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${getArtworkYear(artwork) ? ` (${getArtworkYear(artwork)})` : ''} by Bipana`}
                         className="artwork-image"
                         loading="lazy"
                       />

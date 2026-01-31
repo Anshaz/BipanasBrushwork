@@ -4,9 +4,22 @@ import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import Navbar from './Navbar';
 import './ContactPage.css';
+import { useSEO } from '../seo/useSEO';
 import emailConfig from '../config/emailConfig'; // Check if this path is correct
 
 const ContactPage = () => {
+  useSEO({
+    title: 'Contact',
+    description:
+      'Contact Bipana for artwork inquiries, collaborations, or commissions. Send a message and connect via Instagram, Etsy, or Pinterest.',
+    path: '/contact',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      name: 'Contact Bipana',
+      url: 'https://bipanaart.com/contact'
+    }
+  });
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
