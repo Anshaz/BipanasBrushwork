@@ -389,6 +389,7 @@
 
 .not-on-etsy-text {
   color: var(--text-light);
+  color: #e74c3c;
   font-size: 0.85rem;
   line-height: 1.4;
   margin: 0;
