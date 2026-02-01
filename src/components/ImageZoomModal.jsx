@@ -45,7 +45,13 @@ const ImageZoomModal = ({
   const loginDialog = useDialog();
   const commentDialog = useDialog();
   const errorDialog = useDialog();
+  const [descExpanded, setDescExpanded] = useState(false);
 
+  const clampText = (text = '', maxChars = 220) => {
+    const t = String(text).trim();
+    if (t.length <= maxChars) return { short: t, isClamped: false };
+    return { short: t.slice(0, maxChars).trimEnd() + '…', isClamped: true };
+  };
   useEffect(() => {
     // Reset when artwork changes
     setZoomLevel(1);
@@ -55,6 +61,7 @@ const ImageZoomModal = ({
     // loadComments();
     // loadLikeInfo();
     setActiveTab('image');
+    setDescExpanded(false);
   }, [artwork]);
 
   const loadComments = async () => {
@@ -283,6 +290,8 @@ const ImageZoomModal = ({
     }
   };
 
+
+
   return (
     <>
       {/* Dialogs - Render at root level with higher z-index */}
@@ -464,49 +473,216 @@ const ImageZoomModal = ({
             {/* Details Tab */}
             {activeTab === 'details' && (
               <div className="details-tab">
-                <div className="details-content">
-                  <h3 className="details-title">{artwork.title}</h3>
-                  <p className="details-meta">
-                    {[artwork.medium, artwork.year].filter(Boolean).join(' • ')}
-                  </p>
-                  {artwork.dimensions && (
-                    <p className="details-dimensions">{artwork.dimensions}</p>
-                  )}
+                <div className="details-grid">
+                  {/* LEFT: Main info */}
+                  <section className="details-panel">
+                    <header className="details-hero">
+                      <div className="details-hero-text">
+                        <h2 className="details-title">{artwork?.title || 'Untitled'}</h2>
 
-                  {/* Description */}
-                  {artwork?.description && (
-                    <div className="mt-4">
-                      <h3 className="text-sm font-semibold tracking-wide uppercase opacity-80">
-                        Description
-                      </h3>
+                        {/* Lightweight thumbnail */}
+                        {img?.src && (
+                          <div className="details-thumb-wrap">
+                            <img
+                              src={img.src}              // already optimized variant
+                              srcSet={img.srcSet}        // browser picks smallest
+                              sizes="120px"              // forces tiny image selection
+                              alt={artwork?.title}
+                              className="details-thumb"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+                        )}
 
-                      <div className="mt-2 rounded-xl border border-white/10 bg-white/5 p-4">
-                        <p className="text-sm leading-relaxed text-white/90 whitespace-pre-line">
-                          {artwork.description}
+                        <p className="details-subtitle">
+                          {[artwork?.medium, artwork?.year].filter(Boolean).join(' • ') || '—'}
                         </p>
+
+                        {artwork?.dimensions && (
+                          <p className="details-dimensions">{artwork.dimensions}</p>
+                        )}
+                      </div>
+                      {/* Price + availability */}
+                      <div className="details-hero-meta">
+                        {artwork?.price ? (
+                          <div className="details-price">
+                            <span className="details-price-label">Price</span>
+                            <span className="details-price-value">${artwork.price}</span>
+                          </div>
+                        ) : (
+                          <div className="details-price">
+                            <span className="details-price-label">Price</span>
+                            <span className="details-price-value muted">On request</span>
+                          </div>
+                        )}
+
+                        <div className={`details-badge ${artwork?.onEtsy ? 'is-available' : 'is-request'}`}>
+                          {artwork?.onEtsy ? 'Available' : 'Available on request'}
+                        </div>
+                      </div>
+                    </header>
+
+                    {/* Description */}
+                    {/* Description */}
+                    {artwork?.description ? (
+                      <div className="details-section">
+                        <h3 className="details-section-title">Description</h3>
+
+                        <div className="details-card">
+                          {(() => {
+                            const { short, isClamped } = clampText(artwork.description, 220);
+                            const showFull = descExpanded || !isClamped;
+
+                            return (
+                              <>
+                                <p className="details-paragraph">
+                                  {showFull ? artwork.description : short}
+                                </p>
+
+                                {isClamped && (
+                                  <button
+                                    type="button"
+                                    className="details-readmore"
+                                    onClick={() => setDescExpanded(v => !v)}
+                                    aria-expanded={descExpanded}
+                                  >
+                                    {descExpanded ? 'Show less' : 'Read more'}
+                                  </button>
+                                )}
+                              </>
+                            );
+                          })()}
+                        </div>
+                      </div>
+                    ) : null}
+
+
+                    {/* Purchase / CTA */}
+                    <div className="details-section">
+                      <h3 className="details-section-title">Purchase</h3>
+                      <div className="details-card details-cta">
+                        {artwork?.onEtsy && artwork?.etsyLink ? (
+                          <>
+                            <p className="details-paragraph">
+                              This piece is listed on Etsy. You can purchase it securely there.
+                            </p>
+                            <div className="etsy-link-modal-mobile">
+                              <a
+                                href={artwork.etsyLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="etsy-link-text"
+                              >
+                                Buy on Etsy
+                              </a>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <p className="details-paragraph">
+                              Interested in this artwork? Reach out and I’ll get back to you with pricing and shipping details.
+                            </p>
+                            <a href="/contact" className="details-secondary-btn">
+                              Contact me
+                            </a>
+                          </>
+                        )}
                       </div>
                     </div>
-                  )}
+                  </section>
 
-                  {artwork.onEtsy && artwork.etsyLink ? (
-                    <div className="etsy-link-modal">
-                      <a
-                        href={artwork.etsyLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="etsy-link-text"
-                      >
-                        Buy on Etsy
-                      </a>
+                  {/* RIGHT: Specs / quick facts */}
+                  <aside className="details-panel">
+                    <div className="details-section">
+                      <h3 className="details-section-title">Artwork details</h3>
+
+                      <div className="details-card">
+                        <dl className="details-specs">
+                          <div className="details-spec">
+                            <dt>Title</dt>
+                            <dd>{artwork?.title || '—'}</dd>
+                          </div>
+
+                          <div className="details-spec">
+                            <dt>Medium</dt>
+                            <dd>{artwork?.medium || '—'}</dd>
+                          </div>
+
+                          <div className="details-spec">
+                            <dt>Year</dt>
+                            <dd>{artwork?.year || '—'}</dd>
+                          </div>
+
+                          <div className="details-spec">
+                            <dt>Dimensions</dt>
+                            <dd>{artwork?.dimensions || '—'}</dd>
+                          </div>
+
+                          {/* Optional fields if you have them */}
+                          {artwork?.date ? (
+                            <div className="details-spec">
+                              <dt>Created</dt>
+                              <dd>{formatDate(artwork.date)}</dd>
+                            </div>
+                          ) : null}
+
+                          <div className="details-spec">
+                            <dt>Status</dt>
+                            <dd>{artwork?.onEtsy ? 'Listed on Etsy' : 'On request'}</dd>
+                          </div>
+                        </dl>
+                      </div>
                     </div>
-                  ) : (
-                    <p className="not-on-etsy-text">
-                      Available on request. <a href="/contact" className="contact-link">Contact me</a>
-                    </p>
-                  )}
+
+                    {/* Links */}
+                    <div className="details-section">
+                      <h3 className="details-section-title">Links</h3>
+
+                      <div className="details-card details-links">
+                        <div className="details-links-grid">
+                          {artwork?.onEtsy && artwork?.etsyLink ? (
+                            <a
+                              href={artwork.etsyLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="details-linkItem"
+                            >
+                              <span className="details-linkIcon" aria-hidden="true">🛍️</span>
+                              <span className="details-linkText">
+                                <span className="details-linkLabel">Etsy listing</span>
+                                <span className="details-linkHint">Open in new tab</span>
+                              </span>
+                              <span className="details-linkArrow" aria-hidden="true">↗</span>
+                            </a>
+                          ) : (
+                            <div className="details-linkItem is-disabled" aria-disabled="true">
+                              <span className="details-linkIcon" aria-hidden="true">🛍️</span>
+                              <span className="details-linkText">
+                                <span className="details-linkLabel">Etsy listing</span>
+                                <span className="details-linkHint">Not available</span>
+                              </span>
+                              <span className="details-linkArrow" aria-hidden="true">—</span>
+                            </div>
+                          )}
+
+                          <a href="/contact" className="details-linkItem">
+                            <span className="details-linkIcon" aria-hidden="true">✉️</span>
+                            <span className="details-linkText">
+                              <span className="details-linkLabel">Contact</span>
+                              <span className="details-linkHint">Ask about this artwork</span>
+                            </span>
+                            <span className="details-linkArrow" aria-hidden="true">→</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </aside>
                 </div>
               </div>
             )}
+
 
             {/* Comments Tab */}
             {activeTab === 'comments' && (
