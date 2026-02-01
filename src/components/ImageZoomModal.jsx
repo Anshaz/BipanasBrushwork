@@ -1,14 +1,14 @@
 // src/components/ImageZoomModal.jsx - Fixed version
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import {
-  getComments,
-  addComment,
-  deleteComment,
-  getLikeCount,
-  checkUserLike,
-  likeArtwork
-} from '../services/artworkInteraction';
+// import {
+//   getComments,
+//   addComment,
+//   deleteComment,
+//   getLikeCount,
+//   checkUserLike,
+//   likeArtwork
+// } from '../services/artworkInteraction';
 import Dialog from './Dialog';
 import './ImageZoomModal.css';
 import useDialog from '../hooks/useDialog';
@@ -694,7 +694,7 @@ const ImageZoomModal = ({
                 {/* Add Comment Form */}
                 <div className="add-comment-section">
                   {currentUser ? (
-                    <form className="add-comment-form" onSubmit={handleSubmitComment}>
+                    <form className="add-comment-form">
                       <textarea
                         placeholder="Share your thoughts about this artwork..."
                         value={newComment}
@@ -774,7 +774,7 @@ const ImageZoomModal = ({
                           {currentUser?.uid === comment.userId && (
                             <button
                               className="delete-comment-btn"
-                              onClick={() => handleDeleteComment(comment.id)}
+                              // onClick={() => handleDeleteComment(comment.id)}
                               title="Delete comment"
                             >
                               🗑️

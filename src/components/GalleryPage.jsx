@@ -170,104 +170,104 @@ const GalleryPage = () => {
     // loadArtworkStats();
   }, [currentUser]); // Re-load when user auth changes
 
-  const loadArtworkStats = async () => {
-    const stats = {};
-    const batchSize = 5;
+  // const loadArtworkStats = async () => {
+  //   const stats = {};
+  //   const batchSize = 5;
 
-    for (let i = 0; i < artworks.length; i += batchSize) {
-      const batch = artworks.slice(i, i + batchSize);
+  //   for (let i = 0; i < artworks.length; i += batchSize) {
+  //     const batch = artworks.slice(i, i + batchSize);
 
-      const batchPromises = batch.map(async (artwork) => {
-        try {
-          const [likeCount, comments] = await Promise.all([
-            getLikeCount(artwork.id),
-            getComments(artwork.id)
-          ]);
+  //     const batchPromises = batch.map(async (artwork) => {
+  //       try {
+  //         const [likeCount, comments] = await Promise.all([
+  //           getLikeCount(artwork.id),
+  //           getComments(artwork.id)
+  //         ]);
 
-          const commentCount = comments.length;
+  //         const commentCount = comments.length;
 
-          let userLiked = false;
-          if (currentUser) {
-            userLiked = await checkUserLike(artwork.id, currentUser.uid);
-          }
+  //         let userLiked = false;
+  //         if (currentUser) {
+  //           userLiked = await checkUserLike(artwork.id, currentUser.uid);
+  //         }
 
-          return {
-            id: artwork.id,
-            stats: {
-              likeCount,
-              userLiked,
-              commentCount
-            }
-          };
-        } catch (error) {
-          console.error(`Error loading stats for ${artwork.id}:`, error);
-          return {
-            id: artwork.id,
-            stats: {
-              likeCount: 0,
-              userLiked: false,
-              commentCount: 0
-            }
-          };
-        }
-      });
+  //         return {
+  //           id: artwork.id,
+  //           stats: {
+  //             likeCount,
+  //             userLiked,
+  //             commentCount
+  //           }
+  //         };
+  //       } catch (error) {
+  //         console.error(`Error loading stats for ${artwork.id}:`, error);
+  //         return {
+  //           id: artwork.id,
+  //           stats: {
+  //             likeCount: 0,
+  //             userLiked: false,
+  //             commentCount: 0
+  //           }
+  //         };
+  //       }
+  //     });
 
-      const batchResults = await Promise.all(batchPromises);
-      batchResults.forEach(({ id, stats: artworkStats }) => {
-        stats[id] = artworkStats;
-      });
-    }
+  //     const batchResults = await Promise.all(batchPromises);
+  //     batchResults.forEach(({ id, stats: artworkStats }) => {
+  //       stats[id] = artworkStats;
+  //     });
+  //   }
 
-    setArtworkStats(stats);
-  };
+  //   setArtworkStats(stats);
+  // };
 
-  const handleLike = async (e, artworkId) => {
-    e.stopPropagation();
+  // const handleLike = async (e, artworkId) => {
+  //   e.stopPropagation();
 
-    if (!currentUser) {
-      loginDialog.showDialog({
-        title: 'Sign In Required',
-        message: 'Please sign in to like artworks and interact with the community.',
-        type: 'login',
-        confirmText: 'Sign In Now',
-        onConfirm: () => {
-          loginDialog.hideDialog();
-          setShowAuthModal(true);
-        },
-        cancelText: 'Continue Browsing',
-        showCancel: true
-      });
-      return;
-    }
+  //   if (!currentUser) {
+  //     loginDialog.showDialog({
+  //       title: 'Sign In Required',
+  //       message: 'Please sign in to like artworks and interact with the community.',
+  //       type: 'login',
+  //       confirmText: 'Sign In Now',
+  //       onConfirm: () => {
+  //         loginDialog.hideDialog();
+  //         setShowAuthModal(true);
+  //       },
+  //       cancelText: 'Continue Browsing',
+  //       showCancel: true
+  //     });
+  //     return;
+  //   }
 
-    try {
-      const result = await likeArtwork(artworkId, currentUser.uid);
-      const newStats = { ...artworkStats };
+  //   try {
+  //     const result = await likeArtwork(artworkId, currentUser.uid);
+  //     const newStats = { ...artworkStats };
 
-      if (result.liked) {
-        newStats[artworkId] = {
-          ...newStats[artworkId],
-          likeCount: (newStats[artworkId]?.likeCount || 0) + 1,
-          userLiked: true
-        };
-      } else {
-        newStats[artworkId] = {
-          ...newStats[artworkId],
-          likeCount: (newStats[artworkId]?.likeCount || 0) - 1,
-          userLiked: false
-        };
-      }
+  //     if (result.liked) {
+  //       newStats[artworkId] = {
+  //         ...newStats[artworkId],
+  //         likeCount: (newStats[artworkId]?.likeCount || 0) + 1,
+  //         userLiked: true
+  //       };
+  //     } else {
+  //       newStats[artworkId] = {
+  //         ...newStats[artworkId],
+  //         likeCount: (newStats[artworkId]?.likeCount || 0) - 1,
+  //         userLiked: false
+  //       };
+  //     }
 
-      setArtworkStats(newStats);
-    } catch (error) {
-      console.error('Error liking artwork:', error);
-      errorDialog.showDialog({
-        title: 'Error',
-        message: 'Failed to like artwork. Please try again.',
-        type: 'error'
-      });
-    }
-  };
+  //     setArtworkStats(newStats);
+  //   } catch (error) {
+  //     console.error('Error liking artwork:', error);
+  //     errorDialog.showDialog({
+  //       title: 'Error',
+  //       message: 'Failed to like artwork. Please try again.',
+  //       type: 'error'
+  //     });
+  //   }
+  // };
 
   const handleEtsyClick = (e, etsyLink) => {
     e.stopPropagation();
@@ -288,7 +288,7 @@ const GalleryPage = () => {
       <Navbar />
 
       {/* Auth modal */}
-      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      {/* <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} /> */}
 
       <div>
         <section className="gallery-grid-section">

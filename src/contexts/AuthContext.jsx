@@ -1,19 +1,19 @@
 // src/contexts/AuthContext.jsx
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import {
-    auth,
-    googleProvider,
-    db
-} from '../firebase/config';
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    onAuthStateChanged,
-    updateProfile
-} from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+// import {
+//     auth,
+//     googleProvider,
+//     db
+// } from '../firebase/config';
+// import {
+//     createUserWithEmailAndPassword,
+//     signInWithEmailAndPassword,
+//     signInWithPopup,
+//     signOut,
+//     onAuthStateChanged,
+//     updateProfile
+// } from 'firebase/auth';
+// import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 const AuthContext = createContext({});
 
@@ -112,18 +112,25 @@ export const AuthProvider = ({ children }) => {
     };
 
     // Listen for auth state changes
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            setCurrentUser(user);
-            if (user) {
-                await getUserProfile(user.uid);
-            } else {
-                setUserProfile(null);
-            }
-            setLoading(false);
-        });
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    //         setCurrentUser(user);
+    //         if (user) {
+    //             await getUserProfile(user.uid);
+    //         } else {
+    //             setUserProfile(null);
+    //         }
+    //         setLoading(false);
+    //     });
 
-        return unsubscribe;
+    //     return unsubscribe;
+    // }, []);
+
+    useEffect(() => {
+        // Firebase disabled: no auth listener
+        setCurrentUser(null);
+        setUserProfile(null);
+        setLoading(false);
     }, []);
 
     const value = {

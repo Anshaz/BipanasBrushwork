@@ -8,7 +8,7 @@ const artworks = [
         year: '2024',
         date: '2025-07-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1786945387/hand-painted-annapurna-mountain-acrylic',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1786945387/hand-painted-annapurna-mountain-acrylic',
         latestWork: true,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -22,7 +22,7 @@ const artworks = [
         year: '2024',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659202939/mount-everest-acrylic-painting-himalayan',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1659202939/mount-everest-acrylic-painting-himalayan',
         latestWork: false,
         isFeatured: true,
         dimensions: 'Available in multiple sizes'
@@ -37,7 +37,7 @@ const artworks = [
         year: '2024',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1659158225/textured-mount-everest-painting-original',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1659158225/textured-mount-everest-painting-original',
         latestWork: false,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -67,7 +67,7 @@ const artworks = [
         year: '2025',
         date: '2025-12-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4433602459/vintage-sailing-ship-oil-fabric-painting',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/4433602459/vintage-sailing-ship-oil-fabric-painting',
         latestWork: false,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -82,7 +82,7 @@ const artworks = [
         year: '2024',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4429589187/hand-painted-machapuchare-fish-tail',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/4429589187/hand-painted-machapuchare-fish-tail',
         latestWork: true,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -97,7 +97,7 @@ const artworks = [
         year: '2023',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1634848506/handmade-hallstatt-austria-acrylic',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1634848506/handmade-hallstatt-austria-acrylic',
         latestWork: false,
         isFeatured: true,
         dimensions: 'Available in multiple sizes'
@@ -112,7 +112,7 @@ const artworks = [
         year: '2024',
         date: '2024-09-03',
         onEtsy: false,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1773626307/handmade-sunset-oil-painting-dramatic',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1773626307/handmade-sunset-oil-painting-dramatic',
         latestWork: false,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -127,7 +127,7 @@ const artworks = [
         year: '2025',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1848887830/annapurna-nepal-acrylic-painting',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1848887830/annapurna-nepal-acrylic-painting',
         latestWork: false,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -142,7 +142,7 @@ const artworks = [
         year: '2025',
         date: '2024-08-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1718248803/himalayan-landscape-oil-painting',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1718248803/himalayan-landscape-oil-painting',
         latestWork: false,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
@@ -157,7 +157,7 @@ const artworks = [
         year: '2025',
         date: '2025-04-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1857793831/mount-everest-painting-textured-acrylic',
         latestWork: false,
         isFeatured: true,
         dimensions: 'Available in multiple sizes'
@@ -202,7 +202,7 @@ const artworks = [
         year: '2025',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4428567553/himalaya-range-acrylic-painting',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/4428567553/himalaya-range-acrylic-painting',
         latestWork: false,
         isFeatured: true,
         dimensions: 'Available in multiple sizes'
@@ -247,7 +247,7 @@ const artworks = [
         year: '2023',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/4428589164/seven-lucky-horses-handmade-vastu-energy',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/4428589164/seven-lucky-horses-handmade-vastu-energy',
         latestWork: false,
         isFeatured: true,
         dimensions: 'Available in multiple sizes'
@@ -262,7 +262,7 @@ const artworks = [
         year: '2024',
         date: '2024-09-03',
         onEtsy: true,
-        etsyLink: 'https://bipanasbrushwork.etsy.com/de-en/listing/1794469801/mount-everest-painting-abstract-himalaya',
+        etsyLink: 'https://bipanaart.etsy.com/de-en/listing/1794469801/mount-everest-painting-abstract-himalaya',
         latestWork: false,
         isFeatured: false,
         dimensions: 'Available in multiple sizes'
