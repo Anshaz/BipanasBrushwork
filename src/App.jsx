@@ -7,7 +7,6 @@ import GalleryPage from './components/GalleryPage';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import NotFound from './components/NotFound';
-import { Analytics } from '@vercel/analytics/next';
 
 function App() {
   //   useEffect(() => {
@@ -40,7 +39,6 @@ function App() {
               {/* <Route path="/profile" element={<ProfilePage />} /> */}
             </Routes>
           </main>
-          <Analytics />
         </div>
     </Router>
   );
