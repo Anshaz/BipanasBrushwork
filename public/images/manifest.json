@@ -24,10 +24,10 @@
       }
     ],
     "original": {
-      "width": 4624,
-      "height": 3472,
-      "src": "/originals/Annapurna.jpg",
-      "bytes": 3466799
+      "width": 1280,
+      "height": 961,
+      "src": "/images/annapurna-1280.webp",
+      "bytes": 152020
     }
   },
   {
@@ -55,10 +55,10 @@
       }
     ],
     "original": {
-      "width": 2113,
-      "height": 3026,
-      "src": "/originals/bipana.jpg",
-      "bytes": 759909
+      "width": 1280,
+      "height": 1833,
+      "src": "/images/bipana-1280.webp",
+      "bytes": 105870
     }
   },
   {
@@ -88,8 +88,8 @@
     "original": {
       "width": 1020,
       "height": 807,
-      "src": "/originals/CloudyMountains.jpg",
-      "bytes": 1576946
+      "src": "/images/cloudymountains-1020.webp",
+      "bytes": 138694
     }
   },
   {
@@ -117,10 +117,10 @@
       }
     ],
     "original": {
-      "width": 4624,
-      "height": 3461,
-      "src": "/originals/EasterBunny.jpg",
-      "bytes": 3751169
+      "width": 1280,
+      "height": 958,
+      "src": "/images/easterbunny-1280.webp",
+      "bytes": 277680
     }
   },
   {
@@ -148,10 +148,10 @@
       }
     ],
     "original": {
-      "width": 3975,
-      "height": 2619,
-      "src": "/originals/Everest.jpg",
-      "bytes": 3683720
+      "width": 1280,
+      "height": 843,
+      "src": "/images/everest-1280.webp",
+      "bytes": 157830
     }
   },
   {
@@ -179,10 +179,10 @@
       }
     ],
     "original": {
-      "width": 4624,
-      "height": 3472,
-      "src": "/originals/EverestVillage.jpg",
-      "bytes": 4124234
+      "width": 1280,
+      "height": 961,
+      "src": "/images/everestvillage-1280.webp",
+      "bytes": 186698
     }
   },
   {
@@ -210,10 +210,10 @@
       }
     ],
     "original": {
-      "width": 3254,
-      "height": 2586,
-      "src": "/originals/EverestVillagecolorful.jpg",
-      "bytes": 1879543
+      "width": 1280,
+      "height": 1017,
+      "src": "/images/everestvillagecolorful-1280.webp",
+      "bytes": 190384
     }
   },
   {
@@ -241,10 +241,10 @@
       }
     ],
     "original": {
-      "width": 3426,
-      "height": 3746,
-      "src": "/originals/Hallstatt.jpg",
-      "bytes": 4130512
+      "width": 1280,
+      "height": 1400,
+      "src": "/images/hallstatt-1280.webp",
+      "bytes": 397030
     }
   },
   {
@@ -272,10 +272,10 @@
       }
     ],
     "original": {
-      "width": 2345,
-      "height": 1759,
-      "src": "/originals/HimalayaYak.jpg",
-      "bytes": 779264
+      "width": 1280,
+      "height": 960,
+      "src": "/images/himalayayak-1280.webp",
+      "bytes": 225162
     }
   },
   {
@@ -303,10 +303,10 @@
       }
     ],
     "original": {
-      "width": 4096,
-      "height": 3072,
-      "src": "/originals/Jam on Toast.jpg",
-      "bytes": 6573598
+      "width": 1280,
+      "height": 960,
+      "src": "/images/jam-on-toast-1280.webp",
+      "bytes": 113370
     }
   },
   {
@@ -334,10 +334,10 @@
       }
     ],
     "original": {
-      "width": 3614,
-      "height": 2886,
-      "src": "/originals/Kilimanjaro.jpg",
-      "bytes": 991841
+      "width": 1280,
+      "height": 1022,
+      "src": "/images/kilimanjaro-1280.webp",
+      "bytes": 199596
     }
   },
   {
@@ -365,10 +365,10 @@
       }
     ],
     "original": {
-      "width": 2253,
-      "height": 3000,
-      "src": "/originals/LadyInWhite.jpg",
-      "bytes": 2182705
+      "width": 1280,
+      "height": 1704,
+      "src": "/images/ladyinwhite-1280.webp",
+      "bytes": 445244
     }
   },
   {
@@ -398,8 +398,8 @@
     "original": {
       "width": 361,
       "height": 332,
-      "src": "/originals/logo.png",
-      "bytes": 104550
+      "src": "/images/logo-361.webp",
+      "bytes": 13340
     }
   },
   {
@@ -427,10 +427,10 @@
       }
     ],
     "original": {
-      "width": 4624,
-      "height": 3414,
-      "src": "/originals/MountainAbstract.jpg",
-      "bytes": 3912730
+      "width": 1280,
+      "height": 945,
+      "src": "/images/mountainabstract-1280.webp",
+      "bytes": 242946
     }
   },
   {
@@ -458,10 +458,10 @@
       }
     ],
     "original": {
-      "width": 2948,
-      "height": 3444,
-      "src": "/originals/MountainVillage.jpg",
-      "bytes": 1224664
+      "width": 1280,
+      "height": 1495,
+      "src": "/images/mountainvillage-1280.webp",
+      "bytes": 203904
     }
   },
   {
@@ -489,10 +489,10 @@
       }
     ],
     "original": {
-      "width": 3472,
-      "height": 2601,
-      "src": "/originals/Palampur.jpg",
-      "bytes": 1982005
+      "width": 1280,
+      "height": 959,
+      "src": "/images/palampur-1280.webp",
+      "bytes": 195154
     }
   },
   {
@@ -520,10 +520,10 @@
       }
     ],
     "original": {
-      "width": 4624,
-      "height": 1820,
-      "src": "/originals/PanaromaEverest.jpg",
-      "bytes": 2357583
+      "width": 1280,
+      "height": 504,
+      "src": "/images/panaromaeverest-1280.webp",
+      "bytes": 127972
     }
   },
   {
@@ -551,10 +551,10 @@
       }
     ],
     "original": {
-      "width": 4000,
-      "height": 3000,
-      "src": "/originals/Peanut Butter on Toast.jpg",
-      "bytes": 5778795
+      "width": 1280,
+      "height": 960,
+      "src": "/images/peanut-butter-on-toast-1280.webp",
+      "bytes": 98520
     }
   },
   {
@@ -582,10 +582,10 @@
       }
     ],
     "original": {
-      "width": 2454,
-      "height": 3516,
-      "src": "/originals/sailing.jpg",
-      "bytes": 5960591
+      "width": 1280,
+      "height": 1834,
+      "src": "/images/sailing-1280.webp",
+      "bytes": 328738
     }
   },
   {
@@ -613,10 +613,10 @@
       }
     ],
     "original": {
-      "width": 2837,
-      "height": 1521,
-      "src": "/originals/sevenhorses.jpg",
-      "bytes": 677814
+      "width": 1280,
+      "height": 686,
+      "src": "/images/sevenhorses-1280.webp",
+      "bytes": 60470
     }
   },
   {
@@ -644,10 +644,10 @@
       }
     ],
     "original": {
-      "width": 3428,
-      "height": 4624,
-      "src": "/originals/Sunset.jpg",
-      "bytes": 4586556
+      "width": 1280,
+      "height": 1727,
+      "src": "/images/sunset-1280.webp",
+      "bytes": 492432
     }
   },
   {
@@ -675,10 +675,41 @@
       }
     ],
     "original": {
-      "width": 3886,
-      "height": 3251,
-      "src": "/originals/Valley.jpg",
-      "bytes": 2570911
+      "width": 1280,
+      "height": 1071,
+      "src": "/images/valley-1280.webp",
+      "bytes": 212998
+    }
+  },
+  {
+    "id": "lakephewa",
+    "title": "Lake Phewa, Pokhara",
+    "originalFile": "LakePhewa_Pokhara.jpg",
+    "thumb": {
+      "width": 360,
+      "height": 479,
+      "src": "/images/lake-phewa-thumb.webp",
+      "bytes": 25234
+    },
+    "variants": [
+      {
+        "width": 640,
+        "height": 852,
+        "src": "/images/lake-phewa-640.webp",
+        "bytes": 93862
+      },
+      {
+        "width": 1280,
+        "height": 1704,
+        "src": "/images/lake-phewa-1280.webp",
+        "bytes": 445244
+      }
+    ],
+    "original": {
+      "width": 1280,
+      "height": 1704,
+      "src": "/images/lake-phewa-1280.webp",
+      "bytes": 445244
     }
   }
 ]

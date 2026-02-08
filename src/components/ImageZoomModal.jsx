@@ -41,6 +41,17 @@ const ImageZoomModal = ({
 
   const img = getImageVariants(artwork?.image);
 
+  // Use the smallest possible thumbnail in the Details tab.
+  // If `artwork.image` already points to an optimized webp (e.g. "/images/foo-1280.webp"),
+  // `getImageVariants` may not find a map entry. In that case, derive "-thumb.webp".
+  const detailsThumbSrc = (() => {
+    const candidate = img?.thumb || img?.src || '';
+    if (candidate.includes('/images/') && candidate.endsWith('.webp') && !candidate.includes('-thumb.webp')) {
+      return candidate.replace(/-(\d+)\.webp$/i, '-thumb.webp');
+    }
+    return candidate;
+  })();
+
   // Use the dialog hook
   const loginDialog = useDialog();
   const commentDialog = useDialog();
@@ -484,7 +495,7 @@ const ImageZoomModal = ({
                         {img?.src && (
                           <div className="details-thumb-wrap">
                             <img
-                              src={img.src}              // already optimized variant
+                              src={detailsThumbSrc}
                               srcSet={img.srcSet}        // browser picks smallest
                               sizes="120px"              // forces tiny image selection
                               alt={artwork?.title}
