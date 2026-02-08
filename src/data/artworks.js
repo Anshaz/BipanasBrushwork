@@ -272,7 +272,7 @@ const artworks = [
         id: 'artwork-19',
         image: '/images/lake-phewa-1280.webp',
         title: 'Lake Phewa, Pokhara',
-        description: 'An original acrylic artwork exploring light, texture, and landscape-inspired forms.',
+        description: 'Bring the calm beauty of Nepal into your space with this original hand-painted acrylic artwork inspired by Pokhara and the majestic Phewa Lake. \n\n This painting captures a peaceful lakeside village nestled among lush green hills, with colorful paragliders floating gracefully above the valley—a signature sight of Pokhara. Soft layers of green mountains and misty skies create depth and tranquility, while the gentle reflections on the lake add a sense of stillness and escape.\n\n Painted with acrylics on canvas, this artwork is one of a kind, not a print or reproduction. Every brushstroke reflects the natural charm, adventure, and calm spirit of Pokhara—making it perfect for nature lovers, travel enthusiasts, and anyone seeking peaceful wall décor.',
         medium: 'Acrylic on Canvas',
         year: '2024',
         date: '2024-09-03',
