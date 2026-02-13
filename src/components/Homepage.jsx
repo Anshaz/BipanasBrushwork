@@ -161,7 +161,7 @@ const Homepage = () => {
               <div className="footer-section">
                 <h4>Connect</h4>
                 <div className="social-links">
-                  <a href="https://www.instagram.com/brushworkbybipana" aria-label="Instagram">IG</a>
+                  <a href="https://www.instagram.com/bipanaart" aria-label="Instagram">IG</a>
                   <a href="https://bipanasbrushwork.etsy.com" aria-label="Etsy">ET</a>
                   <a href="https://de.pinterest.com/bipanadahal8844/" aria-label="Pinterest">PI</a>
                 </div>
