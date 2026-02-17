@@ -12,7 +12,7 @@ const Homepage = () => {
     title: 'Original Art & Paintings',
     description:
       'Discover original artworks by Bipana—paintings inspired by Nepal and the Himalayas. Browse featured pieces, latest works, and the full gallery.',
-    path: '/' ,
+    path: '/',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'Person',
@@ -79,8 +79,8 @@ const Homepage = () => {
                             src={src}
                             srcSet={srcSet}
                             sizes="(max-width: 768px) 90vw, 520px"
-                        alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${artwork.year ? ` (${artwork.year})` : ''} by Bipana`}
-                        className="artwork-image-carousal"
+                            alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''}${artwork.year ? ` (${artwork.year})` : ''} by Bipana`}
+                            className="artwork-image-carousal"
                             loading={isActive ? 'eager' : 'lazy'}
                             decoding="async"
                           />
@@ -130,8 +130,8 @@ const Homepage = () => {
                           src={v.thumb}
                           srcSet={v.srcSet}
                           sizes="(max-width: 768px) 45vw, 260px"
-                      alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''} by Bipana`}
-                      loading="lazy"
+                          alt={`${artwork.title}${artwork.medium ? ` — ${artwork.medium}` : ''} by Bipana`}
+                          loading="lazy"
                           decoding="async"
                         />
                       );
@@ -155,7 +155,10 @@ const Homepage = () => {
           <div className="container">
             <div className="footer-content">
               <div className="footer-section">
-                <h3>Bipana's Brushwork</h3>
+                <div className="footer-logo-header">
+                  <img src="/images/logo2.png" alt="Bipana's Artwork Logo" className="logo-image" />
+                  <h3>Bipana's Artwork</h3>
+                </div>
                 <p>Showcasing unique artworks and creative expressions.</p>
               </div>
               <div className="footer-section">

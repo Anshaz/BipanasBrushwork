@@ -33,7 +33,8 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="nav-container">
           <Link to="/" className="logo" onClick={closeMenu}>
-            <span className="logo-text">Bipana's Brushwork</span>
+            <img src="/images/logo1.png" alt="Bipana's Artwork Logo" className="logo-image" />
+            <span className="logo-text">Bipana's Artwork</span>
           </Link>
           
           <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>

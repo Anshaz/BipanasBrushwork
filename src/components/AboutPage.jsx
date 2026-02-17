@@ -35,7 +35,7 @@ const AboutPage = () => {
                 </p>
               </div>
               <div className="hero-image">
-                <div className="artist-image-container">
+                {/* <div className="artist-image-container">
                   <img
                     src={pickSource('/bipana.jpg', 640)}
                     alt="Bipana - Artist"
@@ -49,7 +49,7 @@ const AboutPage = () => {
                       <p>Artist & Creator</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
