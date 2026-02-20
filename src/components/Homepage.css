@@ -397,67 +397,268 @@ body {
   text-align: center;
 }
 
-/* Footer */
-.footer {
-  background: var(--primary-color);
-  color: var(--white);
-  padding: 3rem 2rem 1rem;
+/* Moving banner (stylish, Etsy-inspired accent) */
+:root{
+  --etsy-orange: #F1641E;
+  --etsy-cream: #FFF7F0;
 }
 
-.footer-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 2rem;
+.moving-banner{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(241,100,30,0.10), rgba(255,247,240,0.85), rgba(241,100,30,0.10));
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
-.footer-section h3,
-.footer-section h4 {
-  margin-bottom: 1rem;
-  text-align: center;
+.moving-banner::before,
+.moving-banner::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 56px;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.footer-logo-header {
+.moving-banner::before{
+  left: 0;
+  background: linear-gradient(90deg, rgba(248,249,250,1), rgba(248,249,250,0));
+}
+
+.moving-banner::after{
+  right: 0;
+  background: linear-gradient(270deg, rgba(248,249,250,1), rgba(248,249,250,0));
+}
+
+.moving-banner__track{
   display: flex;
+  width: 100%;
+}
+
+.moving-banner__content{
+  display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  justify-content: center;
-  margin-bottom: 1rem;
+  padding: 0.8rem 0;
+  white-space: nowrap;
+  animation: movingBannerScroll 18s linear infinite;
 }
 
-.footer-logo-header .logo-image {
-  height: 40px;
-  width: 40px;
-  object-fit: contain;
+.moving-banner:hover .moving-banner__content{
+  animation-play-state: paused;
 }
 
-.footer-logo-header h3 {
-  margin-bottom: 0;
+.moving-banner__content span{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.75);
+  color: var(--text-color);
+  font: inherit;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
 }
 
-.social-links {
-  display: flex;
+.moving-banner__content span::before{
+  content: "•";
+  color: var(--etsy-orange);
+  font-weight: 700;
+  line-height: 1;
+}
+
+@keyframes movingBannerScroll{
+  0%{ transform: translateX(0); }
+  100%{ transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .moving-banner__content{ animation: none; }
+}
+
+/* Footer */
+
+/* Reviews + Footer (lighter, cleaner; Etsy color accents) */
+
+.homepage-reviews{
+  width: 100%;
+  padding: 1.75rem 0 1.5rem;
+  border-top: none;
+}
+
+.homepage-reviews__inner{
+  width: 100%;
+  margin: 0;
+}
+
+.homepage-reviews__title{
+  margin: 0 0 0.9rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.homepage-reviews__grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.social-links a {
-  color: var(--white);
+.homepage-reviews__card{
+  margin: 0;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,247,240,0.60));
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.homepage-reviews__text{
+  margin: 0 0 0.85rem 0;
+  color: var(--text-color);
+}
+
+.homepage-reviews__meta{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.homepage-reviews__name{
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.homepage-reviews__stars{
+  letter-spacing: 1px;
+  color: var(--etsy-orange);
+  font-weight: 800;
+}
+
+.homepage-reviews__link{
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  color: var(--primary-color);
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
+  font-weight: 600;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(241,100,30,0.35);
+  background: rgba(255,247,240,0.75);
   transition: var(--transition);
 }
 
-.social-links a:hover {
-  background: rgba(255, 255, 255, 0.1);
+.homepage-reviews__link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(241,100,30,0.65);
+  box-shadow: 0 10px 22px rgba(241,100,30,0.12);
 }
 
-.footer-bottom {
+/* Footer container */
+.footer{
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,249,250,1));
+  color: var(--text-color);
+  padding: 2.5rem 2rem 1.25rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.footer-content{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  align-items: start;
+}
+
+/* Reviews should span full width in the footer */
+.footer-content .homepage-reviews{
+  grid-column: 1 / -1;
+  padding: 0 0 1.25rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.footer-section h3,
+.footer-section h4{
+  margin-bottom: 0.75rem;
+  text-align: left;
+  color: var(--primary-color);
+}
+
+.footer-logo-header{
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.footer-logo-header .logo-image{
+  height: 42px;
+  width: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.9);
+}
+
+.footer-section p{
+  color: var(--text-light);
+}
+
+/* Social links: modern pills with Etsy hover accent */
+.social-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.social-links a{
+  color: var(--primary-color);
+  text-decoration: none;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.75);
+  transition: var(--transition);
+}
+
+.social-links a:hover{
+  border-color: rgba(241,100,30,0.55);
+  box-shadow: 0 10px 22px rgba(241,100,30,0.12);
+  transform: translateY(-1px);
+}
+
+/* Bottom */
+.footer-bottom{
   text-align: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  color: rgba(0,0,0,0.55);
+}
+
+@media (max-width: 900px){
+  .homepage-reviews__grid{ grid-template-columns: 1fr; }
+
+  .footer-content{
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .footer-section h3,
+  .footer-section h4{
+    text-align: left;
+  }
+
+  .social-links{
+    justify-content: flex-start;
+  }
 }
 
 /* Mobile Responsive */
@@ -538,6 +739,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

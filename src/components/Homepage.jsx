@@ -6,6 +6,7 @@ import './Homepage.css';
 import artworks from '../data/artworks';
 import { getImageVariants, pickSource } from '../utils/imageVariants';
 import { useSEO } from '../seo/useSEO';
+import ETSY_REVIEWS from './etsyReviews'; // Import the Etsy reviews
 
 const Homepage = () => {
   useSEO({
@@ -39,7 +40,6 @@ const Homepage = () => {
     <div className="homepage">
       {/* Use shared Navbar */}
       <Navbar />
-
       {/* Add top padding to account for fixed navbar */}
       <div style={{ paddingTop: '50px' }}>
         {/* Hero Section */}
@@ -113,7 +113,27 @@ const Homepage = () => {
             )}
           </div>
         </section>
-
+        {/* Moving banner */}
+        <section className="moving-banner" aria-label="Announcements">
+          <div className="moving-banner__track">
+            <div className="moving-banner__content">
+              <span> Original Himalayan landscape paintings</span>
+              <span>Handmade & one-of-a-kind</span>
+              <span>Worldwide shipping available</span>
+              <span>New works added regularly</span>
+              <span>Shop on Etsy: bipanaart.etsy.com</span>
+            </div>
+            <div style={{ margin: '5px' }} />
+            {/* duplicate for seamless loop */}
+            <div className="moving-banner__content" aria-hidden="true">
+              <span>Original Himalayan landscape paintings</span>
+              <span>Handmade & one-of-a-kind</span>
+              <span>Worldwide shipping available</span>
+              <span>New works added regularly</span>
+              <span>Shop on Etsy: bipanaart.etsy.com</span>
+            </div>
+          </div>
+        </section>
         {/* Gallery Preview */}
         <section id="gallery" className="gallery-preview">
           <div className="container">
@@ -154,6 +174,34 @@ const Homepage = () => {
         <footer className="footer">
           <div className="container">
             <div className="footer-content">
+              <section className="homepage-reviews" aria-label="Customer reviews">
+                <div className="homepage-reviews__inner">
+                  <h2 className="homepage-reviews__title">What buyers say on Etsy</h2>
+
+                  <div className="homepage-reviews__grid">
+                    {ETSY_REVIEWS.slice(0, 3).map((r, idx) => (
+                      <figure key={idx} className="homepage-reviews__card">
+                        <blockquote className="homepage-reviews__text">“{r.text}”</blockquote>
+                        <figcaption className="homepage-reviews__meta">
+                          <span className="homepage-reviews__name">{r.name}</span>
+                          <span className="homepage-reviews__stars" aria-label={`${r.rating} out of 5`}>
+                            {"★★★★★".slice(0, r.rating)}
+                          </span>
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+
+                  <a
+                    className="homepage-reviews__link"
+                    href="https://bipanaart.etsy.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Read more reviews on Etsy →
+                  </a>
+                </div>
+              </section>
               <div className="footer-section">
                 <div className="footer-logo-header">
                   <img src="/images/logo2.png" alt="Bipana's Artwork Logo" className="logo-image" />

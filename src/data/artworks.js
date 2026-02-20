@@ -279,7 +279,7 @@ const artworks = [
         onEtsy: true,
         etsyLink: 'https://bipanaart.etsy.com/de-en/listing/4454166181/pokhara-nepal-painting-phewa-lake',
         latestWork: false,
-        isFeatured: true,
+        isFeatured: false,
         dimensions: 'Available in multiple sizes'
 
     }
