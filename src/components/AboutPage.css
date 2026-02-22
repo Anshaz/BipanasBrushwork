@@ -1,7 +1,7 @@
 /* src/components/AboutPage.css */
 .about-page {
   min-height: 100vh;
-  background: var(--background);
+  background: var(--background-offwhite);
 }
 
 .about-content {
