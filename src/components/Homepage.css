@@ -184,7 +184,7 @@ body {
 /* Featured Section */
 .featured-section {
   padding: 50px 0;
-  background: white;
+  background: var(--background-offwhite);
 }
 
 .section-header {
@@ -290,6 +290,7 @@ body {
 
 .featured-info {
   padding: 20px 0 0;
+  background-color: var(--background-offwhite);
   text-align: left;
 }
 
@@ -665,7 +666,7 @@ body {
 }
 
 .footer-main {
-  display: grid;
+  display: flex;
   grid-template-columns: 2fr 1fr;
   gap: 100px;
   margin-bottom: 60px;
@@ -696,7 +697,7 @@ body {
 }
 
 .footer-links {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(1, 1fr);
   gap: 40px;
 }

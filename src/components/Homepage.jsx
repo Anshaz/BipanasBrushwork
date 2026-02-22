@@ -53,13 +53,13 @@ const Homepage = () => {
     <div className="homepage">
       <Navbar />
       <div>
-        
+
         {/* Full-screen Hero Image with Overlay */}
         <section className="hero-full">
           <div className="hero-image-container">
-            <img 
-              src="/images/everest-1280.webp" 
-              alt="Himalayan Art" 
+            <img
+              src="/images/everest-1280.webp"
+              alt="Himalayan Art"
               className="hero-image"
             />
             <div className="hero-overlay">
@@ -126,7 +126,7 @@ const Homepage = () => {
                   );
                 })}
             </div>
-{/* 
+            {/* 
             <div className="featured-navigation">
               {artworks.filter(artwork => artwork.isFeatured).length > 3 && (
                 <div className="carousel-dots">
@@ -154,7 +154,7 @@ const Homepage = () => {
                 <span className="section-tag">Behind the Art</span>
                 <h2 className="studio-title">In the Studio</h2>
                 <p className="studio-text">
-                  Watch the creative process unfold. Each brushstroke carries the essence of the Himalayas, 
+                  Watch the creative process unfold. Each brushstroke carries the essence of the Himalayas,
                   transforming raw emotion into visual poetry.
                 </p>
                 <div className="studio-stats">
@@ -174,7 +174,7 @@ const Homepage = () => {
               </div>
               <div className="studio-video">
                 <div className="video-wrapper" onClick={handleVideoClick}>
-                  <video 
+                  <video
                     ref={videoRef}
                     poster="/images/video-poster.png"
                     className="video-player"
@@ -307,9 +307,9 @@ const Homepage = () => {
         {/* Footer */}
         <footer className="footer-modern">
           <div className="container-modern">
+            <img src="/images/logo2.png" alt="Bipana's Artwork" className="footer-logo" />
             <div className="footer-main">
               <div className="footer-brand">
-                <img src="/images/logo2.png" alt="Bipana's Artwork" className="footer-logo" />
                 <h3 className="footer-brand-name">Bipana's Art</h3>
                 <p className="footer-brand-description">
                   Showcasing unique artworks inspired by the Himalayas, created with passion and precision.

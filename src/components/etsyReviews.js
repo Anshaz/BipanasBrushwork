@@ -27,7 +27,7 @@ const ETSY_REVIEWS = [
   },
   {
     id: 'r3',
-    rating: 4,
+    rating: 5,
     text: 'I ordered a custom-made piece, and it turned out absolutely fantastic! It even arrived a day before the agreed delivery date and looks fantastic! I am more than satisfied!',
     name: 'Peter',
     date: '2025-07-17',
