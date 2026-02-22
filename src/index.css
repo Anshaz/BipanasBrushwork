@@ -66,6 +66,6 @@ body {
 /* Responsive padding */
 @media (max-width: 768px) {
   .homepage, .gallery-page {
-    padding-top: 70px; /* Slightly less on mobile if navbar is smaller */
+    padding-top: 65px; /* Slightly less on mobile if navbar is smaller */
   }
 }
