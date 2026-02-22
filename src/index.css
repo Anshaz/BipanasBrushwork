@@ -60,7 +60,7 @@ body {
 
 /* Ensure proper spacing for fixed navbar */
 .homepage, .gallery-page {
-  padding-top: 80px; /* Adjust based on your navbar height */
+  padding-top: 75px; /* Adjust based on your navbar height */
 }
 
 /* Responsive padding */
