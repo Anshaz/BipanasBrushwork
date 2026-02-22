@@ -331,6 +331,8 @@ body {
 
 /* Studio Section */
 .studio-section {
+  border-top: 2px solid;
+  border-color: #e6d5a0;
   padding: 50px 0;
   background: var(--background-offwhite);
 }
