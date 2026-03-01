@@ -44,7 +44,7 @@ const GalleryPage = () => {
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: "Bipana's Brushwork — Gallery",
+      name: "Bipana's Art — Gallery",
       url: 'https://bipanaart.com/gallery'
     }
   });
